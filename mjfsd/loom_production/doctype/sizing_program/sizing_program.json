@@ -1,0 +1,279 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:SP-{DD}-{MM}-{YYYY}-{########}",
+ "creation": "2023-05-13 16:32:42.018476",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "po_number",
+  "date",
+  "amended_from",
+  "supplier",
+  "item",
+  "quality",
+  "yarn_count",
+  "lbs_per_bag",
+  "cones_per_bag",
+  "warping_beam",
+  "sizing_beam",
+  "warp_wastage_percent",
+  "beam_size",
+  "ends",
+  "bags_issue",
+  "no_of_bags_required",
+  "column_break_zeiw",
+  "cone_weight",
+  "meter",
+  "wastage",
+  "net_meter",
+  "meter_warp_per_beam",
+  "meter_sizing_beam",
+  "lbs",
+  "fabric_construction",
+  "estimated_consumption_section",
+  "yarn_consumption_per_meter",
+  "lbs_per_sizing_beam",
+  "lbs_consumed",
+  "lbs_returnable",
+  "item_returnable"
+ ],
+ "fields": [
+  {
+   "fieldname": "po_number",
+   "fieldtype": "Data",
+   "label": "PO Number"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Sizing Program",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Sizing Name",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Brand",
+   "options": "Item"
+  },
+  {
+   "fieldname": "quality",
+   "fieldtype": "Select",
+   "label": "Quality",
+   "options": "Cotton\nViscose"
+  },
+  {
+   "fieldname": "yarn_count",
+   "fieldtype": "Float",
+   "label": "Yarn Count",
+   "precision": "2"
+  },
+  {
+   "default": "100",
+   "fieldname": "lbs_per_bag",
+   "fieldtype": "Float",
+   "label": "LBS / Bag",
+   "precision": "2"
+  },
+  {
+   "fieldname": "cones_per_bag",
+   "fieldtype": "Float",
+   "label": "Cones / Bag",
+   "precision": "2"
+  },
+  {
+   "fieldname": "ends",
+   "fieldtype": "Float",
+   "label": "Ends",
+   "precision": "2"
+  },
+  {
+   "fieldname": "warping_beam",
+   "fieldtype": "Float",
+   "label": "Warping Beam",
+   "precision": "2"
+  },
+  {
+   "fieldname": "sizing_beam",
+   "fieldtype": "Float",
+   "label": "Sizing Beam",
+   "precision": "2"
+  },
+  {
+   "default": "0.0",
+   "fieldname": "cone_weight",
+   "fieldtype": "Float",
+   "label": "Cone Weight",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "meter",
+   "fieldtype": "Float",
+   "label": "Meter",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "4",
+   "fieldname": "warp_wastage_percent",
+   "fieldtype": "Float",
+   "label": "Warp Wastage %",
+   "precision": "2"
+  },
+  {
+   "default": "0.0",
+   "fieldname": "net_meter",
+   "fieldtype": "Float",
+   "label": "Net Meter",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "meter_warp_per_beam",
+   "fieldtype": "Float",
+   "label": "Meter Warp / Beam",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "meter_sizing_beam",
+   "fieldtype": "Float",
+   "label": "Meter Sizing Beam",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "beam_size",
+   "fieldtype": "Link",
+   "label": "Beam Size",
+   "options": "Beam Size"
+  },
+  {
+   "fieldname": "no_of_bags_required",
+   "fieldtype": "Float",
+   "label": "No Of Bags Required",
+   "precision": "2"
+  },
+  {
+   "fieldname": "bags_issue",
+   "fieldtype": "Data",
+   "label": "Bags Issue"
+  },
+  {
+   "default": "0.0",
+   "fieldname": "lbs",
+   "fieldtype": "Float",
+   "label": "LBS",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_zeiw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0.0",
+   "fieldname": "wastage",
+   "fieldtype": "Float",
+   "label": "Wastage",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "estimated_consumption_section",
+   "fieldtype": "Heading",
+   "label": "Estimated Consumption "
+  },
+  {
+   "default": "0.0",
+   "fieldname": "yarn_consumption_per_meter",
+   "fieldtype": "Float",
+   "label": "Yarn Consumption Per Meter",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "lbs_per_sizing_beam",
+   "fieldtype": "Float",
+   "label": "LBS / Sizing Beam",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "lbs_consumed",
+   "fieldtype": "Float",
+   "label": "LBS Consumed ",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "default": "0.0",
+   "fieldname": "lbs_returnable",
+   "fieldtype": "Float",
+   "label": "LBS Returnable",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "item_returnable",
+   "fieldtype": "Link",
+   "label": "Item Name",
+   "options": "Item"
+  },
+  {
+   "fieldname": "fabric_construction",
+   "fieldtype": "Data",
+   "label": "Fabric Construction"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-05-14 15:38:46.095301",
+ "modified_by": "Administrator",
+ "module": "Loom Production",
+ "name": "Sizing Program",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
