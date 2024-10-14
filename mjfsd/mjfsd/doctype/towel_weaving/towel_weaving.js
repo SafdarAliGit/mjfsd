@@ -93,6 +93,7 @@ function weft_consumption(frm) {
 
     frm.set_value("total_weft", total_weft);
     frm.set_value("consumption_percentage", consumption_percentage);
+    pile_calculations(frm);
 }
 
 function ground_consumption(frm) {
@@ -131,6 +132,7 @@ function ground_consumption(frm) {
     // Set values in form
     frm.set_value("total_ground", total_ground);
     frm.set_value("ground_consumption_percentage", ground_consumption_percentage);
+    pile_calculations(frm);
 }
 
 function hem_consumption(frm) {
@@ -151,4 +153,13 @@ function hem_consumption(frm) {
     // Set values in form
     frm.set_value("total_hem", total_hem);
     frm.set_value("hem_consumption_percentage", hem_consumption_percentage);
+    pile_calculations(frm);
+}
+
+function pile_calculations(frm){
+     let cp = parseFloat(frm.doc.consumption_percentage) || 0;
+     let gcp = parseFloat(frm.doc.ground_consumption_percentage) || 0;
+     let hcp = parseFloat(frm.doc.hem_consumption_percentage) || 0;
+     let pile = 100 - (cp + gcp + hcp);
+     frm.set_value("pile", pile);
 }

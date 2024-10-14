@@ -64,7 +64,9 @@
   "column_break_jpr9h",
   "total_hem",
   "column_break_lcney",
-  "hem_consumption_percentage"
+  "hem_consumption_percentage",
+  "pile_section",
+  "pile"
  ],
  "fields": [
   {
@@ -354,12 +356,26 @@
   {
    "fieldname": "column_break_lcney",
    "fieldtype": "Column Break"
+  },
+  {
+   "description": "\n",
+   "fieldname": "pile_section",
+   "fieldtype": "Section Break",
+   "label": "PILE"
+  },
+  {
+   "default": "0",
+   "description": "PILE   =   100    -    ( BODY WEFT\t+\tGROUND\t+\tHEM FANCY )",
+   "fieldname": "pile",
+   "fieldtype": "Float",
+   "label": "Pile",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-12 09:03:50.519171",
+ "modified": "2024-10-14 18:00:26.977623",
  "modified_by": "Administrator",
  "module": "MJFSD",
  "name": "Towel Weaving",
