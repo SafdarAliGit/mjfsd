@@ -20,6 +20,8 @@ frappe.ui.form.on('Towel Weaving', {
     },
     thread_type: function (frm) {
         weft_consumption(frm);
+        calculate_weft_count(frm);
+
     },
 
     weft_count: function (frm) {
@@ -43,6 +45,7 @@ frappe.ui.form.on('Towel Weaving', {
     },
     yarn: function (frm) {
         ground_consumption(frm);
+        calculate_yarn_count(frm);
     },
     yarn_count: function (frm) {
         ground_consumption(frm);
@@ -58,6 +61,16 @@ frappe.ui.form.on('Towel Weaving', {
     },
     add_percentage_third: function (frm) {
         hem_consumption(frm);
+    },
+    weft_thread: function (frm) {
+        calculate_weft_count(frm);
+    },
+    reduction: function (frm) {
+        calculate_weft_count(frm);
+        calculate_yarn_count(frm);
+    },
+    ground_thread_type: function (frm) {
+        calculate_yarn_count(frm);
     }
 });
 
@@ -136,7 +149,7 @@ function ground_consumption(frm) {
 }
 
 function hem_consumption(frm) {
-    let hem_count = parseFloat(frm.doc.hem_count) || 1;
+    let hem_count = parseFloat(frm.doc.hem_count) || 0;
     let add_percentage_third = parseFloat(frm.doc.add_percentage_third) || 1;
     let weft_count = parseFloat(frm.doc.weft_count) || 1;
     let quality_weight = parseFloat(frm.doc.quality_weight) || 1;
@@ -148,18 +161,84 @@ function hem_consumption(frm) {
 
     let one_twenty_seven_by_hundred = (127 * 100) / 2.54;
     let one_twenty_seven_by_hundred_percentage = one_twenty_seven_by_hundred + (one_twenty_seven_by_hundred * (add_percentage_third / 100));
-    let total_hem = (((((one_twenty_seven_by_hundred_percentage * 4.5) / 100) / 768 ) / weft_count) / 2.2046) * hem_count;
+    let total_hem = (((((one_twenty_seven_by_hundred_percentage * 4.5) / 100) / 768) / weft_count) / 2.2046) * hem_count;
     let hem_consumption_percentage = (total_hem / quality_weight) * 100000;
     // Set values in form
-    frm.set_value("total_hem", total_hem);
-    frm.set_value("hem_consumption_percentage", hem_consumption_percentage);
+    if (hem_count <= 0) {
+        frm.set_value("total_hem", 0);
+        frm.set_value("hem_consumption_percentage", 0);
+        frm.set_value("add_percentage_third", 0);
+    } else {
+        frm.set_value("total_hem", total_hem);
+        frm.set_value("hem_consumption_percentage", hem_consumption_percentage);
+    }
+
     pile_calculations(frm);
 }
 
-function pile_calculations(frm){
-     let cp = parseFloat(frm.doc.consumption_percentage) || 0;
-     let gcp = parseFloat(frm.doc.ground_consumption_percentage) || 0;
-     let hcp = parseFloat(frm.doc.hem_consumption_percentage) || 0;
-     let pile = 100 - (cp + gcp + hcp);
-     frm.set_value("pile", pile);
+function pile_calculations(frm) {
+    let cp = parseFloat(frm.doc.consumption_percentage) || 0;
+    let gcp = parseFloat(frm.doc.ground_consumption_percentage) || 0;
+    let hcp = parseFloat(frm.doc.hem_consumption_percentage) || 0;
+    let pile = 100 - (cp + gcp + hcp);
+    frm.set_value("pile", pile);
 }
+
+
+function calculate_weft_count(frm) {
+    // Get the values of weft_thread, reduction, and thread_type
+    const weft_thread = frm.doc.weft_thread || 0; // Default to 0 if not set
+    const reduction = frm.doc.reduction || 0;    // Default to 0 if not set
+    const thread_type = frm.doc.thread_type;      // Can be "Single" or "Double"
+
+    let weft_count = 0;
+
+    // Perform calculation based on thread_type
+    if (thread_type == "SINGLE") {
+        weft_count = weft_thread - reduction;
+    } else if (thread_type == "DOUBLE") {
+        weft_count = (weft_thread / 2) - reduction;
+    }
+
+    // Set the calculated value in the weft_count field
+    frm.set_value('weft_count', weft_count);
+}
+
+function calculate_yarn_count(frm) {
+    // Get the values of weft_thread, reduction, and thread_type
+    const yarn = frm.doc.yarn || 0; // Default to 0 if not set
+    const reduction = frm.doc.reduction || 0;    // Default to 0 if not set
+    const thread_type = frm.doc.thread_type;      // Can be "Single" or "Double"
+
+    let yarn_count = 0;
+
+    // Perform calculation based on thread_type
+    if (thread_type == "SINGLE") {
+        yarn_count = yarn - reduction;
+    } else if (thread_type == "DOUBLE") {
+        yarn_count = (yarn / 2) - reduction;
+    }
+
+    // Set the calculated value in the weft_count field
+    frm.set_value('yarn_count', yarn_count);
+}
+
+function calculate_yarn_count(frm) {
+    // Get the values of yarn, reduction, and thread_type
+    const yarn = frm.doc.yarn || 0; // Default to 0 if not set
+    const reduction = frm.doc.ground_reduction || 0; // Default to 0 if not set
+    const thread_type = frm.doc.ground_thread_type || ""; // Default to empty string if not set
+
+    let yarn_count = 0;
+
+    // Perform calculation based on thread_type
+    if (thread_type.toUpperCase() === "SINGLE") {
+        yarn_count = yarn - reduction;
+    } else if (thread_type.toUpperCase() === "DOUBLE") {
+        yarn_count = (yarn / 2) - reduction;
+    }
+
+    // Set the calculated value in the yarn_count field
+    frm.set_value('yarn_count', yarn_count);
+}
+
