@@ -58,12 +58,18 @@
   "column_break_iazv8",
   "ground_consumption_percentage",
   "hem_fancy_consumption_section",
-  "hem_count",
+  "hem_yarn_count",
+  "column_break_3qega",
+  "loom_width",
   "column_break_hl1mi",
   "add_percentage_third",
+  "column_break_ba2aq",
+  "hem_pick",
+  "column_break_2fega",
+  "loom_pcs",
   "column_break_jpr9h",
   "total_hem",
-  "column_break_lcney",
+  "section_break_pjv6k",
   "hem_consumption_percentage",
   "pile_section",
   "pile"
@@ -315,15 +321,10 @@
    "fieldtype": "Column Break"
   },
   {
-   "description": "127\tX\t100\t/\t2.54\tX\tADD %\tX\t4.5\t/\t100\t/\t768\t/\tWEFT COUNT\t/\t2.2046\tX\tHEM COUNT\n",
+   "description": "PICK\tX\tLOOM WIDTH\tX\tADD %\t/\t768.1\t/\tYARN COUNT\t/\t2.2046\t/\tLOOM PCS\n\n",
    "fieldname": "hem_fancy_consumption_section",
    "fieldtype": "Section Break",
    "label": "HEM FANCY CONSUMPTION"
-  },
-  {
-   "fieldname": "hem_count",
-   "fieldtype": "Float",
-   "label": "Hem Count"
   },
   {
    "fieldname": "add_percentage_third",
@@ -354,10 +355,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "column_break_lcney",
-   "fieldtype": "Column Break"
-  },
-  {
    "description": "\n",
    "fieldname": "pile_section",
    "fieldtype": "Section Break",
@@ -370,12 +367,48 @@
    "fieldtype": "Float",
    "label": "Pile",
    "read_only": 1
+  },
+  {
+   "fieldname": "loom_width",
+   "fieldtype": "Float",
+   "label": "Loom Width"
+  },
+  {
+   "fieldname": "hem_pick",
+   "fieldtype": "Float",
+   "label": "Hem Pick"
+  },
+  {
+   "fieldname": "hem_yarn_count",
+   "fieldtype": "Float",
+   "label": " Hem Yarn Count"
+  },
+  {
+   "fieldname": "loom_pcs",
+   "fieldtype": "Float",
+   "label": "Loom PCS"
+  },
+  {
+   "fieldname": "column_break_3qega",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_ba2aq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_2fega",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_pjv6k",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-14 18:00:26.977623",
+ "modified": "2024-12-27 19:18:46.837696",
  "modified_by": "Administrator",
  "module": "MJFSD",
  "name": "Towel Weaving",

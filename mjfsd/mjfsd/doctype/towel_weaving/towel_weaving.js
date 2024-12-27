@@ -56,10 +56,19 @@ frappe.ui.form.on('Towel Weaving', {
     add_percentage_second: function (frm) {
         ground_consumption(frm);
     },
-    hem_count: function (frm) {
+    hem_yarn_count: function (frm) {
         hem_consumption(frm);
     },
     add_percentage_third: function (frm) {
+        hem_consumption(frm);
+    },
+    loom_with: function (frm) {
+        hem_consumption(frm);
+    },
+    hem_pick: function (frm) {
+        hem_consumption(frm);
+    },
+    loom_pcs: function (frm) {
         hem_consumption(frm);
     },
     weft_thread: function (frm) {
@@ -149,32 +158,47 @@ function ground_consumption(frm) {
 }
 
 function hem_consumption(frm) {
-    let hem_count = parseFloat(frm.doc.hem_count) || 0;
+    // Parse input values from the form and set defaults
+    let hem_yarn_count = parseFloat(frm.doc.hem_yarn_count) || 0;
+    let loom_width = parseFloat(frm.doc.loom_width) || 0;
+    let hem_pick = parseFloat(frm.doc.hem_pick) || 0;
+    let loom_pcs = parseFloat(frm.doc.loom_pcs) || 0;
     let add_percentage_third = parseFloat(frm.doc.add_percentage_third) || 1;
-    let weft_count = parseFloat(frm.doc.weft_count) || 1;
     let quality_weight = parseFloat(frm.doc.quality_weight) || 1;
 
+    // Ensure quality_weight is not zero to avoid division by zero
     if (quality_weight === 0) {
-        quality_weight = 1;
         console.warn("quality_weight was zero, defaulted to 1 to avoid division by zero.");
+        quality_weight = 1; // Default to 1 if zero
     }
 
-    let one_twenty_seven_by_hundred = (127 * 100) / 2.54;
-    let one_twenty_seven_by_hundred_percentage = one_twenty_seven_by_hundred + (one_twenty_seven_by_hundred * (add_percentage_third / 100));
-    let total_hem = (((((one_twenty_seven_by_hundred_percentage * 4.5) / 100) / 768) / weft_count) / 2.2046) * hem_count;
-    let hem_consumption_percentage = (total_hem / quality_weight) * 100000;
-    // Set values in form
-    if (hem_count <= 0) {
+    // Calculate hem pick based on loom width
+    let hem_pic_by_loom_width = hem_pick * loom_width;
+
+    // Calculate added hem pick based on additional percentage
+    let added_hem_pic_by_loom_width = hem_pic_by_loom_width + (hem_pic_by_loom_width * (add_percentage_third / 100));
+
+    // Calculate total hem consumption
+    if (hem_yarn_count > 0 && loom_pcs > 0) {
+        let total_hem = (((added_hem_pic_by_loom_width / 768.1) / hem_yarn_count) / 2.2046) / loom_pcs;
+
+        // Calculate hem consumption percentage
+        let hem_consumption_percentage = (total_hem / quality_weight) * 100000;
+
+        // Set values in the form
+        frm.set_value("total_hem", total_hem);
+        frm.set_value("hem_consumption_percentage", hem_consumption_percentage);
+    } else {
+        // If yarn count or loom pieces are invalid, set outputs to zero
         frm.set_value("total_hem", 0);
         frm.set_value("hem_consumption_percentage", 0);
         frm.set_value("add_percentage_third", 0);
-    } else {
-        frm.set_value("total_hem", total_hem);
-        frm.set_value("hem_consumption_percentage", hem_consumption_percentage);
     }
 
+    // Call additional calculations if needed
     pile_calculations(frm);
 }
+
 
 function pile_calculations(frm) {
     let cp = parseFloat(frm.doc.consumption_percentage) || 0;
