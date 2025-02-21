@@ -38,7 +38,9 @@
   "lbs_per_sizing_beam",
   "lbs_consumed",
   "lbs_returnable",
-  "item_returnable"
+  "item_returnable",
+  "weaving_contract",
+  "weaver"
  ],
  "fields": [
   {
@@ -247,12 +249,26 @@
    "fieldname": "fabric_construction",
    "fieldtype": "Data",
    "label": "Fabric Construction"
+  },
+  {
+   "fieldname": "weaving_contract",
+   "fieldtype": "Link",
+   "label": "Weaving Contract",
+   "options": "Weaving Contract",
+   "read_only": 1
+  },
+  {
+   "fieldname": "weaver",
+   "fieldtype": "Link",
+   "label": "Weaver",
+   "options": "Customer",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-05-14 15:38:46.095301",
+ "modified": "2025-02-21 19:28:07.938478",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program",
