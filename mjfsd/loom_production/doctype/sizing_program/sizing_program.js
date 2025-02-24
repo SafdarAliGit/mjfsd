@@ -126,7 +126,14 @@ frappe.ui.form.on("Sizing Program", {
                     "item_group": "Beam"
                 }
             }
-        })
+        });
+        frm.set_query("item", function () {
+            return {
+                "filters": {
+                    "item_group": "Yarn"
+                }
+            }
+        });
     
     },
     ends: function (frm) {
