@@ -40,7 +40,9 @@
   "lbs_returnable",
   "item_returnable",
   "weaving_contract",
-  "weaver"
+  "weaver",
+  "uom",
+  "source_warehouse"
  ],
  "fields": [
   {
@@ -263,12 +265,32 @@
    "label": "Weaver",
    "options": "Customer",
    "read_only": 1
+  },
+  {
+   "fetch_from": "item.stock_uom",
+   "fieldname": "uom",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "UOM"
+  },
+  {
+   "fieldname": "source_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Source Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2025-02-21 19:28:07.938478",
+ "links": [
+  {
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "sizing_program"
+  }
+ ],
+ "modified": "2025-02-24 22:02:38.239291",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program",

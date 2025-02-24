@@ -134,6 +134,23 @@ frappe.ui.form.on("Sizing Program", {
                 }
             }
         });
+
+        if (frm.doc.docstatus == 1) {
+            frm.add_custom_button(__('Stock Entry'), function() {
+                frappe.call({
+                    method: "mjfsd.loom_production.events.create_stock_entry_from_sizing_program.create_stock_entry_from_sizing_program",
+                    args: {
+                        sizing_program: frm.doc.name
+                    },
+                    callback: function(r) {
+                        if (!r.exc) {
+							frappe.model.sync(r.message);
+							frappe.set_route("Form", r.message.doctype, r.message.name);
+						}
+                    }
+                });
+            }).css('background-color', '#ff9800').css('color', '#ffffff','font-weight','bold');
+		}
     
     },
     ends: function (frm) {
