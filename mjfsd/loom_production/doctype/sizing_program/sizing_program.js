@@ -119,9 +119,16 @@ $(document).ready(function () {
 
 
 frappe.ui.form.on("Sizing Program", {
-    // refresh(frm) {
-    //
-    // },
+    refresh(frm) {
+        frm.set_query("item_returnable", function () {
+            return {
+                "filters": {
+                    "item_group": "Beam"
+                }
+            }
+        })
+    
+    },
     ends: function (frm) {
         var cones_per_bag = frm.doc.cones_per_bag;
         var lbs_per_bag = frm.doc.lbs_per_bag;
