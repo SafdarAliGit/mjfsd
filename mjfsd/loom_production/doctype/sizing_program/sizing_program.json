@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:SP-{DD}-{MM}-{YYYY}-{########}",
+ "autoname": "SPROG.-.{supplier}.-.###",
  "creation": "2023-05-13 16:32:42.018476",
  "default_view": "List",
  "doctype": "DocType",
@@ -46,9 +46,11 @@
  ],
  "fields": [
   {
+   "default": "None",
    "fieldname": "po_number",
    "fieldtype": "Data",
-   "label": "PO Number"
+   "label": "PO Number",
+   "read_only": 1
   },
   {
    "default": "Today",
@@ -69,7 +71,8 @@
    "fieldname": "supplier",
    "fieldtype": "Link",
    "label": "Sizing Name",
-   "options": "Supplier"
+   "options": "Supplier",
+   "reqd": 1
   },
   {
    "fieldname": "item",
@@ -85,7 +88,7 @@
   },
   {
    "fieldname": "yarn_count",
-   "fieldtype": "Float",
+   "fieldtype": "Data",
    "label": "Yarn Count",
    "precision": "2"
   },
@@ -290,11 +293,11 @@
    "link_fieldname": "sizing_program"
   }
  ],
- "modified": "2025-02-24 22:02:38.239291",
+ "modified": "2025-03-18 21:40:46.011616",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program",
- "naming_rule": "Expression",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

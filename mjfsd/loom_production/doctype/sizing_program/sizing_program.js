@@ -120,6 +120,9 @@ $(document).ready(function () {
 
 frappe.ui.form.on("Sizing Program", {
     refresh(frm) {
+        if (!frm.is_new()) {
+            frm.set_value('po_number', frm.doc.name);
+        }
         frm.set_query("item_returnable", function () {
             return {
                 "filters": {

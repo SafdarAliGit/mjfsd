@@ -10,6 +10,7 @@
 
 frappe.ui.form.on('Loom Production', {
     refresh(frm) {
+        
         frm.set_query('sizing_name', 'loom_production_items', function (doc, cdt, cdn) {
             return {
                 filters: [
