@@ -182,7 +182,7 @@
    "options": "Beam Size"
   },
   {
-   "description": "(Eds / Cones Per Bag) / Warping Beam",
+   "description": "(Ends / Cones Per Bag) / Warping Beam",
    "fieldname": "no_of_bags_required",
    "fieldtype": "Float",
    "label": "No Of Bags Required",
@@ -303,7 +303,7 @@
    "link_fieldname": "sizing_program"
   }
  ],
- "modified": "2025-03-19 15:50:19.464331",
+ "modified": "2025-03-19 15:57:41.269038",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program",
