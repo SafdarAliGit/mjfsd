@@ -88,7 +88,7 @@
   },
   {
    "fieldname": "yarn_count",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Yarn Count",
    "precision": "2"
   },
@@ -125,6 +125,7 @@
   },
   {
    "default": "0.0",
+   "description": "Lbs Per Bag / Cones Per Bag",
    "fieldname": "cone_weight",
    "fieldtype": "Float",
    "label": "Cone Weight",
@@ -133,6 +134,7 @@
   },
   {
    "default": "0.0",
+   "description": "Yarn Count X 768.1 X Cone Weight",
    "fieldname": "meter",
    "fieldtype": "Float",
    "label": "Meter",
@@ -148,6 +150,7 @@
   },
   {
    "default": "0.0",
+   "description": "Meter - Wastage",
    "fieldname": "net_meter",
    "fieldtype": "Float",
    "label": "Net Meter",
@@ -156,6 +159,7 @@
   },
   {
    "default": "0.0",
+   "description": "Net Meter / Warping Beam",
    "fieldname": "meter_warp_per_beam",
    "fieldtype": "Float",
    "label": "Meter Warp / Beam",
@@ -164,6 +168,7 @@
   },
   {
    "default": "0.0",
+   "description": "Meter Warp Per Beam / Sizing Beam",
    "fieldname": "meter_sizing_beam",
    "fieldtype": "Float",
    "label": "Meter Sizing Beam",
@@ -177,6 +182,7 @@
    "options": "Beam Size"
   },
   {
+   "description": "(Eds / Cones Per Bag) / Warping Beam",
    "fieldname": "no_of_bags_required",
    "fieldtype": "Float",
    "label": "No Of Bags Required",
@@ -214,6 +220,7 @@
   },
   {
    "default": "0.0",
+   "description": "(Ends / 768.1)/ Yarn Count",
    "fieldname": "yarn_consumption_per_meter",
    "fieldtype": "Float",
    "label": "Yarn Consumption Per Meter",
@@ -222,6 +229,7 @@
   },
   {
    "default": "0.0",
+   "description": "Meter Sizing Beam X Sizing Beam",
    "fieldname": "lbs_per_sizing_beam",
    "fieldtype": "Float",
    "label": "LBS / Sizing Beam",
@@ -230,6 +238,7 @@
   },
   {
    "default": "0.0",
+   "description": "Yarn Consumption Per Meter  X Lbs Per Sizing Beam",
    "fieldname": "lbs_consumed",
    "fieldtype": "Float",
    "label": "LBS Consumed ",
@@ -238,6 +247,7 @@
   },
   {
    "default": "0.0",
+   "description": "Ls - Lbs Consumed",
    "fieldname": "lbs_returnable",
    "fieldtype": "Float",
    "label": "LBS Returnable",
@@ -293,7 +303,7 @@
    "link_fieldname": "sizing_program"
   }
  ],
- "modified": "2025-03-18 21:40:46.011616",
+ "modified": "2025-03-19 15:50:19.464331",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program",
