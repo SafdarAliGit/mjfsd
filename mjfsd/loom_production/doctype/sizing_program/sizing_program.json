@@ -195,6 +195,7 @@
   },
   {
    "default": "0.0",
+   "description": "Lbs Per Bag  X  Bags Issue",
    "fieldname": "lbs",
    "fieldtype": "Float",
    "label": "LBS",
@@ -303,7 +304,7 @@
    "link_fieldname": "sizing_program"
   }
  ],
- "modified": "2025-03-19 15:57:41.269038",
+ "modified": "2025-03-19 16:09:27.632220",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program",
