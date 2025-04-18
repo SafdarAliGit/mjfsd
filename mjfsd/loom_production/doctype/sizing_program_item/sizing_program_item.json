@@ -1,0 +1,119 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-04-18 15:37:44.109235",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type",
+  "item",
+  "set_no",
+  "w_set",
+  "sizing_name",
+  "yarn_count",
+  "remarks",
+  "ends",
+  "beam_no",
+  "length",
+  "yarn_consumption_per_meter",
+  "lbs"
+ ],
+ "fields": [
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "Beam\nYarn"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "set_no",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Set No",
+   "unique": 1
+  },
+  {
+   "fieldname": "w_set",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "W Set"
+  },
+  {
+   "fieldname": "sizing_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Sizing Name",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "yarn_count",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Yarn Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "ends",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Ends",
+   "precision": "2"
+  },
+  {
+   "fieldname": "beam_no",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Beam No"
+  },
+  {
+   "fieldname": "length",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Length"
+  },
+  {
+   "description": "(Ends / 768.1)/ Yarn Count",
+   "fieldname": "yarn_consumption_per_meter",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Yarn Consumption Per Meter"
+  },
+  {
+   "description": "Yarn Consumption Per Meter X Length",
+   "fieldname": "lbs",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "LBS",
+   "precision": "2"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-04-18 17:47:06.752811",
+ "modified_by": "Administrator",
+ "module": "Loom Production",
+ "name": "Sizing Program Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
