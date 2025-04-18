@@ -273,13 +273,15 @@ frappe.ui.form.on('Sizing Program Item', {
     form_render: function(frm, cdt, cdn) {
         let row = locals[cdt][cdn];
 
-        // Set default values here
-        if (!row.sizing_name) {
+      
             frappe.model.set_value(cdt, cdn, "sizing_name", frm.doc.supplier);
-        }
-        if (!row.yarn_count) {
+      
+    
             frappe.model.set_value(cdt, cdn, "yarn_count", frm.doc.yarn_count);
-        }
+      
+      
+            frappe.model.set_value(cdt, cdn, "yarn_item", frm.doc.item);
+        
     },
     ends: function(frm, cdt, cdn) {
         calculate_value_from_ends(frm, cdt, cdn);

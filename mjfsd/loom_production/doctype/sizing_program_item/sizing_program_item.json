@@ -19,7 +19,8 @@
   "beam_no",
   "length",
   "yarn_consumption_per_meter",
-  "lbs"
+  "lbs",
+  "yarn_item"
  ],
  "fields": [
   {
@@ -108,12 +109,18 @@
   {
    "fieldname": "column_break_jz3nl",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "yarn_item",
+   "fieldtype": "Link",
+   "label": "Yarn Item",
+   "options": "Item"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-04-18 19:05:53.219086",
+ "modified": "2025-04-18 19:11:00.051812",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program Item",
