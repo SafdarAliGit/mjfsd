@@ -14,6 +14,7 @@
   "sizing_name",
   "yarn_count",
   "remarks",
+  "column_break_jz3nl",
   "ends",
   "beam_no",
   "length",
@@ -102,12 +103,16 @@
    "in_list_view": 1,
    "label": "LBS",
    "precision": "2"
+  },
+  {
+   "fieldname": "column_break_jz3nl",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-04-18 17:47:06.752811",
+ "modified": "2025-04-18 18:02:39.406281",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program Item",
