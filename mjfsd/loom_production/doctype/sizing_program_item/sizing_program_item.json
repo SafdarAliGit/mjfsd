@@ -94,7 +94,8 @@
    "fieldname": "yarn_consumption_per_meter",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Yarn Consumption Per Meter"
+   "label": "Yarn Consumption Per Meter",
+   "precision": "7"
   },
   {
    "description": "Yarn Consumption Per Meter X Length",
@@ -112,7 +113,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-04-18 18:02:39.406281",
+ "modified": "2025-04-18 18:53:20.257302",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program Item",
