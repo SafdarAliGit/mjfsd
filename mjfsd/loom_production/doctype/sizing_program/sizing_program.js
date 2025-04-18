@@ -138,6 +138,13 @@ frappe.ui.form.on("Sizing Program", {
                 }
             }
         });
+        frm.set_query("item","items", function () {
+            return {
+                "filters": {
+                    "item_group": "Beam"
+                }
+            }
+        });
 
         if (frm.doc.docstatus == 1) {
             frm.add_custom_button(__('Stock Entry'), function() {

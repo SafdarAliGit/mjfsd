@@ -33,7 +33,7 @@
    "fieldname": "item",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "item",
+   "label": "Beam item",
    "options": "Item"
   },
   {
@@ -113,7 +113,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-04-18 18:53:20.257302",
+ "modified": "2025-04-18 19:05:53.219086",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program Item",
