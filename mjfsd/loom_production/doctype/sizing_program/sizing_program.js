@@ -288,6 +288,9 @@ frappe.ui.form.on('Sizing Program Item', {
     },
     length: function(frm, cdt, cdn) {
         calculate_total_yarn_consumption(frm, cdt, cdn);
+    },
+    make_stock_entry: function(frm, cdt, cdn) {
+        make_stock_entry(frm, cdt, cdn);
     }
 });
 
@@ -312,3 +315,24 @@ function calculate_total_yarn_consumption(frm, cdt, cdn) {
         frappe.model.set_value(cdt, cdn, 'lbs', 0);
     }
 }
+
+function make_stock_entry(frm, cdt, cdn) {
+    const row = locals[cdt][cdn];
+
+    frappe.call({
+        method: "mjfsd.loom_production.events.create_stock_entry_from_sizing_program.make_stock_entry_from_sizing_item",
+        args: {
+            docname: frm.doc.name,
+            s_warehouse: frm.doc.source_warehouse,
+            child_row: row
+        },
+        callback: function (r) {
+            if (!r.exc && r.message) {
+                frappe.msgprint(__('Stock Entry Created: <a href="/app/stock-entry/' + r.message + '" target="_blank">' + r.message + '</a>'));
+            }
+        }
+    });
+}
+
+
+
