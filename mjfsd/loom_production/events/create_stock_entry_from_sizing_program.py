@@ -60,8 +60,8 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
         batch.batch_id = str(child_row.get("set_no")) 
         batch.item = child_row.get("item")
         batch.stock_uom = "Meter"
-        batch.ends = child_row.get("ends")
-        batch.yarn_count = child_row.get("yarn_count")
+        batch.custom_ends = child_row.get("ends")
+        batch.custom_yarn_count = child_row.get("yarn_count")
         batch.save(ignore_permissions=True)
 
         # Create Stock Entry
