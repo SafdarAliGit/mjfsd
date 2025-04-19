@@ -87,7 +87,8 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
             "qty": child_row.get("length"),
             "uom": "Meter",
             "t_warehouse": child_row.get("target_warehouse"),
-            "batch_no": batch.name
+            "batch_no": batch.name,
+            "allow_zero_valuation_rate": 1
         })
 
         se.save(ignore_permissions=True)
