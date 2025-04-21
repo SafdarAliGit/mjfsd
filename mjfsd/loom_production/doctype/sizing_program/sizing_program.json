@@ -24,14 +24,15 @@
   "ends",
   "bags_issue",
   "no_of_bags_required",
-  "column_break_zeiw",
   "cone_weight",
   "meter",
+  "column_break_zeiw",
   "wastage",
   "net_meter",
   "meter_warp_per_beam",
   "meter_sizing_beam",
   "lbs",
+  "lbs_issue",
   "fabric_construction",
   "estimated_consumption_section",
   "yarn_consumption_per_meter",
@@ -43,6 +44,13 @@
   "weaver",
   "uom",
   "source_warehouse",
+  "target_warehouse",
+  "section_break_yucn8",
+  "stock_return_item",
+  "section_break_zehrc",
+  "total_yarn_return",
+  "column_break_r0xpw",
+  "balance_yarn",
   "section_break_gbacc",
   "items"
  ],
@@ -105,7 +113,8 @@
    "fieldname": "cones_per_bag",
    "fieldtype": "Float",
    "label": "Cones / Bag",
-   "precision": "2"
+   "precision": "2",
+   "read_only": 1
   },
   {
    "fieldname": "ends",
@@ -307,6 +316,52 @@
    "fieldtype": "Table",
    "label": "Sizing Program Item",
    "options": "Sizing Program Item"
+  },
+  {
+   "fieldname": "section_break_yucn8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "stock_return_item",
+   "fieldtype": "Table",
+   "label": "Stock Return Item",
+   "options": "Sizing Program Stock Return Item"
+  },
+  {
+   "fieldname": "section_break_zehrc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_yarn_return",
+   "fieldtype": "Float",
+   "label": "Total Yarn Return",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_r0xpw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "balance_yarn",
+   "fieldtype": "Float",
+   "label": "Balance Yarn",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "lbs_issue",
+   "fieldtype": "Float",
+   "label": "LBS Issue"
+  },
+  {
+   "fieldname": "target_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Target Warehouse",
+   "mandatory_depends_on": "eval:doc.total_yarn_return > 0;",
+   "options": "Warehouse"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -315,9 +370,13 @@
   {
    "link_doctype": "Stock Entry",
    "link_fieldname": "sizing_program"
+  },
+  {
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "custom_sizing_program_stock_entry"
   }
  ],
- "modified": "2025-04-19 16:54:43.376079",
+ "modified": "2025-04-21 23:01:09.015729",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program",

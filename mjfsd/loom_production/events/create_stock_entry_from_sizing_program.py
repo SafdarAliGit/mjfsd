@@ -1,6 +1,8 @@
 import frappe
 import json
+from frappe import _
 from frappe.model.document import Document
+
 
 @frappe.whitelist()
 def create_stock_entry_from_sizing_program(sizing_program):
@@ -40,13 +42,6 @@ def create_stock_entry_from_sizing_program(sizing_program):
     # Return the Stock Entry name to open in the form view
     return stock_entry
 
-
-
-
-import frappe
-import json
-from frappe import _
-from frappe.model.document import Document
 
 @frappe.whitelist()
 def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
@@ -96,5 +91,39 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
 
     except Exception as e:
         frappe.log_error(frappe.get_traceback(), "Error in make_stock_entry_from_sizing_item")
+        frappe.throw(_("Failed to create Stock Entry. Error: {0}").format(str(e)))
+
+
+@frappe.whitelist()
+def make_stock_entry_for_stock_return_item(sizing_program):
+    try:
+        # Fetch the parent document
+        sizing_program = frappe.get_doc("Sizing Program", sizing_program)
+
+        # Create a new Stock Entry for Material Transfer
+        se = frappe.new_doc("Stock Entry")
+        se.stock_entry_type = "Material Transfer"
+        se.purpose = "Material Transfer"
+        se.set_posting_time = 1
+        se.posting_date = sizing_program.date
+        se.custom_sizing_program_stock_entry = sizing_program.name
+
+        # Iterate over each row in the stock_return_item child table
+        for row in sizing_program.stock_return_item:
+            se.append("items", {
+                "item_code": row.yarn_item,
+                "qty": row.qty_lbs,
+                "uom": "Lbs",
+                "s_warehouse": sizing_program.source_warehouse,
+                "t_warehouse": sizing_program.target_warehouse,
+                "conversion_factor": 1,
+                "stock_uom":"Lbs"
+            })
+
+        # Save and submit the Stock Entry
+        return se
+
+    except Exception as e:
+        frappe.log_error(frappe.get_traceback(), "Error in make_stock_entry_for_stock_return_item")
         frappe.throw(_("Failed to create Stock Entry. Error: {0}").format(str(e)))
 

@@ -7,8 +7,8 @@ $(document).ready(function () {
         'input[data-fieldname="yarn_count"],input[data-fieldname="lbs_per_bag"],input[data-fieldname="cones_per_bag"],' +
         'input[data-fieldname="warping_beam"],input[data-fieldname="sizing_beam"],input[data-fieldname="warp_wastage_percent"],' +
         'input[data-fieldname="beam_size"],input[data-fieldname="ends"],input[data-fieldname="bags_issue"],' +
-        'input[data-fieldname="no_of_bags_required"],input[data-fieldname="item_returnable"],input[data-fieldname="fabric_construction"]')
-        .css("background-color", "#FFE4C4");
+        'input[data-fieldname="no_of_bags_required"],input[data-fieldname="item_returnable"],input[data-fieldname="fabric_construction"],' +
+        'input[data-fieldname="lbs_issue"]').css("background-color", "#FFE4C4");
 
     $('input[data-fieldname="po_number"]').focus(function () {
         $(this).css("background-color", "#50C878");
@@ -113,6 +113,9 @@ $(document).ready(function () {
     $('input[data-fieldname="fabric_construction"]').blur(function () {
         $(this).css("background-color", "#FFE4C4");
     });
+    $('input[data-fieldname="lbs_issue"]').blur(function () {
+        $(this).css("background-color", "#FFE4C4");
+    });
 
 });
 
@@ -145,7 +148,13 @@ frappe.ui.form.on("Sizing Program", {
                 }
             }
         });
-
+        frm.set_query("yarn_item","stock_return_item", function () {
+            return {
+                "filters": {
+                    "item_group": "Yarn"
+                }
+            }
+        });
         if (frm.doc.docstatus == 1) {
             frm.add_custom_button(__('Stock Entry'), function() {
                 frappe.call({
@@ -162,7 +171,31 @@ frappe.ui.form.on("Sizing Program", {
                 });
             }).css('background-color', '#ff9800').css('color', '#ffffff','font-weight','bold');
 		}
+        if (frm.doc.docstatus == 1) {
+            
+            frm.add_custom_button(__('Stock Return Entry'), function() {
+                frappe.call({
+                    method: "mjfsd.loom_production.events.create_stock_entry_from_sizing_program.make_stock_entry_for_stock_return_item",
+                    args: {
+                        sizing_program: frm.doc.name,
+                    },
+                    callback: function(r) {
+                        if (!r.exc) {
+							frappe.model.sync(r.message);
+							frappe.set_route("Form", r.message.doctype, r.message.name);
+						}
+                    }
+                });
+            }).css('background-color', '#527DF3').css('color', '#ffffff','font-weight','bold');
+		}
     
+    
+    },
+    lbs_issue:function(frm){
+        calculate_cones_per_bag(frm);
+    },
+    bags_issue:function(frm){
+        calculate_cones_per_bag(frm);
     },
     ends: function (frm) {
         var cones_per_bag = frm.doc.cones_per_bag;
@@ -294,6 +327,25 @@ frappe.ui.form.on('Sizing Program Item', {
     }
 });
 
+frappe.ui.form.on('Sizing Program Stock Return Item',{
+    qty_lbs: function(frm, cdt, cdn) {
+        update_total_yarn_return(frm);
+    },
+    stock_return_item_remove:function(frm,cdt,cdn){
+        update_total_yarn_return(frm);
+    }
+});
+
+function update_total_yarn_return(frm) {
+    let total = 0;
+    let lbs_issue = frm.doc.lbs_issue;
+    frm.doc.stock_return_item.forEach(function(row) {
+        total += flt(row.qty_lbs);
+    });
+    frm.set_value('total_yarn_return', total);
+    frm.set_value('balance_yarn',lbs_issue - total);
+}
+
 function calculate_value_from_ends(frm, cdt, cdn) {
     let row = locals[cdt][cdn];
 
@@ -335,4 +387,16 @@ function make_stock_entry(frm, cdt, cdn) {
 }
 
 
+function calculate_cones_per_bag(frm) {
+    const bags_issue = frm.doc.bags_issue;
+    const lbs_issue = frm.doc.lbs_issue;
 
+    // Ensure both values are numbers and bags_issue is not zero
+    if (bags_issue && lbs_issue && bags_issue !== 0) {
+        const cones = lbs_issue / bags_issue;
+        frm.set_value('cones_per_bag', cones);
+    } else {
+        // Set to 0 or handle as per your application's requirements
+        frm.set_value('cones_per_bag', 0);
+    }
+}
