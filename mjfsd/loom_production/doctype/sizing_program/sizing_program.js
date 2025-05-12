@@ -226,6 +226,7 @@ frappe.ui.form.on("Sizing Program", {
         frm.set_value('no_of_bags_required', no_of_bags_required);
 
         var yarn_consumption_per_meter = (ends / 768.1)/yarn_count;
+     
         frm.set_value('yarn_consumption_per_meter',yarn_consumption_per_meter);
 
         var lbs_per_sizing_beam = meter_sizing_beam * sizing_beam;
@@ -271,7 +272,6 @@ frappe.ui.form.on("Sizing Program", {
 
         var yarn_consumption_per_meter = (ends / 768.1)/yarn_count;
         frm.set_value('yarn_consumption_per_meter',yarn_consumption_per_meter);
-
         var lbs_per_sizing_beam = meter_sizing_beam * sizing_beam;
         frm.set_value('lbs_per_sizing_beam',lbs_per_sizing_beam);
 
@@ -351,7 +351,7 @@ function calculate_value_from_ends(frm, cdt, cdn) {
 
     if (row.ends && row.yarn_count) {
         let result = (row.ends / 768.1) / row.yarn_count;
-        frappe.model.set_value(cdt, cdn, 'yarn_consumption_per_meter', result.toFixed(2));
+        frappe.model.set_value(cdt, cdn, 'yarn_consumption_per_meter', result.toFixed(5));
     } else {
         frappe.model.set_value(cdt, cdn, 'yarn_consumption_per_meter', 0);
     }
