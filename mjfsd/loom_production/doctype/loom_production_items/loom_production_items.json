@@ -82,14 +82,13 @@
    "default": "0",
    "fieldname": "actual_reading",
    "fieldtype": "Data",
-   "label": "Actual Reading",
-   "read_only": 1
+   "label": "Actual Reading"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-05-01 16:35:01.734720",
+ "modified": "2025-05-16 20:24:37.302649",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Loom Production Items",
