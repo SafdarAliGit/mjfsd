@@ -75,8 +75,7 @@
    "default": "0",
    "fieldname": "unit_per_rpm",
    "fieldtype": "Data",
-   "label": "Unit Per RPM",
-   "read_only": 1
+   "label": "Unit Per RPM"
   },
   {
    "default": "0",
@@ -88,7 +87,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-05-16 20:24:37.302649",
+ "modified": "2025-05-17 17:38:33.680448",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Loom Production Items",
