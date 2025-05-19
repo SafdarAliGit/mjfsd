@@ -11,7 +11,8 @@
   "shift_name",
   "shift_start_time",
   "shift_end_time",
-  "shift_supervisor"
+  "shift_supervisor",
+  "shift_working_hours"
  ],
  "fields": [
   {
@@ -26,28 +27,32 @@
    "fieldname": "shift_start_time",
    "fieldtype": "Time",
    "in_list_view": 1,
-   "label": "Shift Start Time",
-   "reqd": 1
+   "label": "Shift Start Time"
   },
   {
    "fieldname": "shift_end_time",
    "fieldtype": "Time",
    "in_list_view": 1,
-   "label": "Shift End Time",
-   "reqd": 1
+   "label": "Shift End Time"
   },
   {
    "fieldname": "shift_supervisor",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Shift Supervisor",
-   "options": "Employee",
+   "options": "Employee"
+  },
+  {
+   "default": "8",
+   "fieldname": "shift_working_hours",
+   "fieldtype": "Float",
+   "label": "Shift Working Hours",
    "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-04-29 19:11:40.771565",
+ "modified": "2025-05-19 16:40:27.761889",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Shift",

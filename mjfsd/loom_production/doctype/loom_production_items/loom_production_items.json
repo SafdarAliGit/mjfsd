@@ -37,8 +37,7 @@
    "fieldname": "rpm",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "RPM",
-   "read_only": 1
+   "label": "RPM"
   },
   {
    "fieldname": "sizing_name",
@@ -52,19 +51,20 @@
    "default": "0",
    "fieldname": "start_reading",
    "fieldtype": "Int",
+   "hidden": 1,
    "in_list_view": 1,
-   "label": "Start Reading",
-   "reqd": 1
+   "label": "Start Reading"
   },
   {
    "default": "0",
    "fieldname": "end_reading",
    "fieldtype": "Int",
+   "hidden": 1,
    "in_list_view": 1,
-   "label": "End Reading",
-   "reqd": 1
+   "label": "End Reading"
   },
   {
+   "description": "(Actual Reading / Unit Per RPM) X 100",
    "fieldname": "effeciency",
    "fieldtype": "Int",
    "in_list_view": 1,
@@ -87,7 +87,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-05-17 17:38:33.680448",
+ "modified": "2025-05-19 16:32:13.775640",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Loom Production Items",

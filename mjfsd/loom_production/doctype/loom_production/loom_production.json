@@ -10,8 +10,11 @@
  "field_order": [
   "shift",
   "shift_supervisor",
+  "column_break_3kydn",
   "date",
   "amended_from",
+  "shift_working_hours",
+  "section_break_iuhe0",
   "loom_production_items"
  ],
  "fields": [
@@ -44,16 +47,32 @@
    "read_only": 1
   },
   {
+   "allow_bulk_edit": 1,
    "fieldname": "loom_production_items",
    "fieldtype": "Table",
    "label": "Loom Production Detail",
    "options": "Loom Production Items"
+  },
+  {
+   "fetch_from": "shift.shift_working_hours",
+   "fieldname": "shift_working_hours",
+   "fieldtype": "Float",
+   "label": "Shift Working Hours",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_3kydn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_iuhe0",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-30 18:17:29.833219",
+ "modified": "2025-05-19 16:41:59.981144",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Loom Production",
