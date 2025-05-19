@@ -22,16 +22,12 @@ frappe.ui.form.on('Loom Production', {
 })
 
 frappe.ui.form.on('Loom Production Items', {
-    rpm: function (frm, cdt, cdn) {
-        var d = locals[cdt][cdn];
-        var unit_per_rpm = round(d.rpm* (0.72/ 12) * frm.doc.shift_working_hours,0);
-        frappe.model.set_value(cdt, cdn, "unit_per_rpm", unit_per_rpm);
-    },
-
     actual_reading: function (frm, cdt, cdn) {
         var d = locals[cdt][cdn];
+        var unit_per_rpm = Math.round((d.rpm* (0.72/ 12) * frm.doc.shift_working_hours),0);
+        frappe.model.set_value(cdt, cdn, "unit_per_rpm", unit_per_rpm);
         var actual_reading = d.actual_reading;
-        var effeciency = Math.floor((actual_reading/d.unit_per_rpm)*100);
+        var effeciency = Math.floor((actual_reading/unit_per_rpm)*100);
         frappe.model.set_value(cdt, cdn, "effeciency", effeciency);
     },
 
