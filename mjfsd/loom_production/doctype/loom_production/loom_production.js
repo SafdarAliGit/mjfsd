@@ -1,11 +1,3 @@
-// Copyright (c) 2023, Tech Ventures and contributors
-// For license information, please see license.txt
-
-// frappe.ui.form.on("Loom Production", {
-// 	refresh(frm) {
-//
-// 	},
-// });
 
 
 frappe.ui.form.on('Loom Production', {
@@ -29,6 +21,7 @@ frappe.ui.form.on('Loom Production Items', {
         var actual_reading = d.actual_reading;
         var effeciency = Math.floor((actual_reading/unit_per_rpm)*100);
         frappe.model.set_value(cdt, cdn, "effeciency", effeciency);
+        calculate_meters_in_row(frm, cdt, cdn);
     },
 
 
@@ -37,3 +30,14 @@ frappe.ui.form.on('Loom Production Items', {
 
 
 
+function calculate_meters_in_row(frm, cdt, cdn) {
+    const row = locals[cdt][cdn];
+
+    if (!row.actual_reading || !row.constant || !row.pick || !row.panna) {
+        frm.fields_dict['items'].grid.refresh();
+        return;
+    }
+
+    const meters = ((row.actual_reading * row.constant) / row.pick) * row.panna;
+    frappe.model.set_value(cdt, cdn, 'meters', flt(meters, 2));
+}

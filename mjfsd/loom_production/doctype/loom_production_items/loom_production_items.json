@@ -14,7 +14,11 @@
   "end_reading",
   "actual_reading",
   "unit_per_rpm",
-  "effeciency"
+  "effeciency",
+  "pick",
+  "panna",
+  "constant",
+  "meters"
  ],
  "fields": [
   {
@@ -43,7 +47,7 @@
    "fieldname": "sizing_name",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Sizing",
+   "label": "Quality",
    "options": "Item",
    "reqd": 1
   },
@@ -82,12 +86,40 @@
    "fieldname": "actual_reading",
    "fieldtype": "Data",
    "label": "Actual Reading"
+  },
+  {
+   "fetch_from": "sizing_name.custom_pick",
+   "fieldname": "pick",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Pick"
+  },
+  {
+   "fetch_from": "sizing_name.custom_panna",
+   "fieldname": "panna",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Panna"
+  },
+  {
+   "default": "25.4",
+   "fieldname": "constant",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Constant"
+  },
+  {
+   "description": "((Actual Reading x Constant) / Pick) x Panna",
+   "fieldname": "meters",
+   "fieldtype": "Float",
+   "label": "Meters",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-05-19 16:32:13.775640",
+ "modified": "2025-05-23 19:50:05.943041",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Loom Production Items",
