@@ -26,7 +26,7 @@ class LoomProduction(Document):
 
                 # efficiency calculation
                 if unit_per_rpm > 0:
-                    row.effeciency = int((actual_reading / unit_per_rpm) * 100)
+                    row.effeciency = round((actual_reading / unit_per_rpm) * 100, 0)
                 else:
                     row.effeciency = 0
 
@@ -37,6 +37,7 @@ class LoomProduction(Document):
                 row.unit_per_rpm = 0
                 row.effeciency = 0
                 row.meters = 0
+
 
 
 
