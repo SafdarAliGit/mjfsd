@@ -11,7 +11,9 @@ class LoomProduction(Document):
             shift_hours = float(self.shift_working_hours)
         except (TypeError, ValueError):
             shift_hours = 0
-
+        total_meters = 0
+        total_unit_per_rpm = 0
+        total_efficiency = 0
         for row in self.loom_production_items:
             try:
                 rpm = float(row.rpm or 0)
@@ -32,11 +34,17 @@ class LoomProduction(Document):
 
                 # meters calculation
                 row.meters = ((actual_reading * constant) / pick) * panna
-
+                # master calculations
+                total_meters += row.meters
+                total_unit_per_rpm += row.unit_per_rpm
+                total_efficiency += row.effeciency
             except (TypeError, ValueError):
                 row.unit_per_rpm = 0
                 row.effeciency = 0
                 row.meters = 0
+        self.total_meters = total_meters
+        self.total_unit_per_rpm = total_unit_per_rpm
+        self.average_efficiency = total_efficiency / len(self.loom_production_items)
 
 
 

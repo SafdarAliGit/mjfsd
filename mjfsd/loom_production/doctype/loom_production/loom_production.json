@@ -15,7 +15,13 @@
   "amended_from",
   "shift_working_hours",
   "section_break_iuhe0",
-  "loom_production_items"
+  "loom_production_items",
+  "section_break_xxti5",
+  "total_unit_per_rpm",
+  "column_break_qjzin",
+  "average_efficiency",
+  "column_break_xhfie",
+  "total_meters"
  ],
  "fields": [
   {
@@ -67,12 +73,45 @@
   {
    "fieldname": "section_break_iuhe0",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_xxti5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_unit_per_rpm",
+   "fieldtype": "Float",
+   "label": "Total Unit Per RPM",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_qjzin",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "average_efficiency",
+   "fieldtype": "Float",
+   "label": "Average Efficiency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_xhfie",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_meters",
+   "fieldtype": "Float",
+   "label": "Total Meters",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-05-19 16:41:59.981144",
+ "modified": "2025-05-25 15:14:24.198508",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Loom Production",
