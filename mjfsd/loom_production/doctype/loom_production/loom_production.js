@@ -19,7 +19,7 @@ frappe.ui.form.on('Loom Production Items', {
         var unit_per_rpm = Math.round((d.rpm* (0.72/ 12) * frm.doc.shift_working_hours),0);
         frappe.model.set_value(cdt, cdn, "unit_per_rpm", unit_per_rpm);
         var actual_reading = d.actual_reading;
-        var effeciency = Math.floor((actual_reading/unit_per_rpm)*100);
+        var effeciency = round((actual_reading/unit_per_rpm)*100,2);
         frappe.model.set_value(cdt, cdn, "effeciency", effeciency);
         calculate_meters_in_row(frm, cdt, cdn);
     },
