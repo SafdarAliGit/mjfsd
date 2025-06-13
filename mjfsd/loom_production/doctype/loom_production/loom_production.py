@@ -6,6 +6,11 @@ from frappe.model.document import Document
 
 
 class LoomProduction(Document):
+    def validate(self):
+        for item in self.loom_production_items:
+            if not item.constant:
+                item.constant = 2.54
+
     def before_save(self):
         try:
             shift_hours = float(self.shift_working_hours)
@@ -14,6 +19,7 @@ class LoomProduction(Document):
         total_meters = 0
         total_unit_per_rpm = 0
         total_efficiency = 0
+        total_pick = 0
         for row in self.loom_production_items:
             try:
                 rpm = float(row.rpm or 0)
@@ -38,6 +44,7 @@ class LoomProduction(Document):
                 total_meters += row.meters
                 total_unit_per_rpm += row.unit_per_rpm
                 total_efficiency += row.effeciency
+                total_pick += row.pick
             except (TypeError, ValueError):
                 row.unit_per_rpm = 0
                 row.effeciency = 0
@@ -45,6 +52,7 @@ class LoomProduction(Document):
         self.total_meters = total_meters
         self.total_unit_per_rpm = total_unit_per_rpm
         self.average_efficiency = total_efficiency / len(self.loom_production_items)
+        self.avg_pick = total_pick / len(self.loom_production_items)
 
 
 

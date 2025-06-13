@@ -19,6 +19,8 @@
   "section_break_xxti5",
   "total_unit_per_rpm",
   "column_break_qjzin",
+  "avg_pick",
+  "column_break_ncsv5",
   "average_efficiency",
   "column_break_xhfie",
   "total_meters"
@@ -106,12 +108,24 @@
    "fieldtype": "Float",
    "label": "Total Meters",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "avg_pick",
+   "fieldtype": "Float",
+   "label": "Avg Pick",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_ncsv5",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-05-25 15:14:24.198508",
+ "modified": "2025-06-13 16:51:36.090010",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Loom Production",
