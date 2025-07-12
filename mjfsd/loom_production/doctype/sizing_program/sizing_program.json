@@ -8,6 +8,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "conversion",
   "po_number",
   "date",
   "amended_from",
@@ -362,6 +363,13 @@
    "label": "Target Warehouse",
    "mandatory_depends_on": "eval:doc.total_yarn_return > 0;",
    "options": "Warehouse"
+  },
+  {
+   "default": "1",
+   "description": "<span style=\"font-weight: bold; color: orange;\">\nNOTE: If checked it allows 0 valuation,\nif Un checked it does not allow 0 valuation.\n</span>",
+   "fieldname": "conversion",
+   "fieldtype": "Check",
+   "label": " <span style=\"font-weight: bold; color: Green;\">Conversion </span>"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -376,7 +384,7 @@
    "link_fieldname": "custom_sizing_program_stock_entry"
   }
  ],
- "modified": "2025-04-21 23:01:09.015729",
+ "modified": "2025-07-12 19:43:28.732452",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program",
