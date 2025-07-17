@@ -54,6 +54,11 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
         child_row = json.loads(child_row)
 
         sizing_program = frappe.get_doc("Sizing Program", docname)
+        valuation = 0
+        if sizing_program.conversion == 1:
+            valuation = 1
+        else:
+            valuation = 0
 
         # Create Batch for finished item
         batch = frappe.new_doc("Batch")
