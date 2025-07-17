@@ -13,7 +13,7 @@ def create_stock_entry_from_sizing_program(sizing_program):
     if se:
         se_doc = frappe.get_doc("Stock Entry", se)
     if se_doc and se_doc.docstatus != 2:
-        frappe.throw(f"Stock Entry already created for {weaving_contract} Weaving Contract")
+        frappe.throw(f"Stock Entry already created for {sp.name} Sizing Program")
     # Create a new Stock Entry
     stock_entry = frappe.new_doc("Stock Entry")
     stock_entry.stock_entry_type = "Manufacture"  # Change as needed
