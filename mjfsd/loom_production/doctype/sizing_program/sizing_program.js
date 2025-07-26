@@ -155,6 +155,13 @@ frappe.ui.form.on("Sizing Program", {
                 }
             }
         });
+        frm.set_query("fabric_construction","fabric_construction_detail", function () {
+            return {
+                "filters": {
+                    "item_group": "Fabric"
+                }
+            }
+        });
         if (frm.doc.docstatus == 1) {
             frm.add_custom_button(__('Stock Entry'), function() {
                 frappe.call({

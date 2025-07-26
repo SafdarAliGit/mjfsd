@@ -53,7 +53,9 @@
   "column_break_r0xpw",
   "balance_yarn",
   "section_break_gbacc",
-  "items"
+  "items",
+  "section_break_vzpyf",
+  "fabric_construction_detail"
  ],
  "fields": [
   {
@@ -370,6 +372,16 @@
    "fieldname": "conversion",
    "fieldtype": "Check",
    "label": " <span style=\"font-weight: bold; color: Green;\">Conversion </span>"
+  },
+  {
+   "fieldname": "section_break_vzpyf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "fabric_construction_detail",
+   "fieldtype": "Table",
+   "label": "Fabric Construction Detail",
+   "options": "Fabric Construction Detail"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -384,7 +396,7 @@
    "link_fieldname": "custom_sizing_program_stock_entry"
   }
  ],
- "modified": "2025-07-12 19:43:28.732452",
+ "modified": "2025-07-26 16:54:36.032072",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program",
