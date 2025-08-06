@@ -48,6 +48,7 @@ def create_stock_entry_from_sizing_program(sizing_program):
     return stock_entry
 
 
+
 @frappe.whitelist()
 def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
     try:
@@ -67,6 +68,7 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
         batch.stock_uom = "Meter"
         batch.custom_ends = child_row.get("ends")
         batch.custom_yarn_count = child_row.get("yarn_count")
+        batch.custom_warp_weight = child_row.get("warp_weight")
         batch.save(ignore_permissions=True)
 
         # Create Stock Entry

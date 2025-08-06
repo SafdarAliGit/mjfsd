@@ -22,6 +22,13 @@
   "lbs",
   "yarn_item",
   "target_warehouse",
+  "column_break_on7yt",
+  "fabric_construction",
+  "panna",
+  "warp_weight",
+  "wastage_percentage",
+  "yarn_item_rate",
+  "beem_rate",
   "make_stock_entry"
  ],
  "fields": [
@@ -135,12 +142,65 @@
    "label": "Target Warehouse",
    "options": "Warehouse",
    "reqd": 1
+  },
+  {
+   "fieldname": "column_break_on7yt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fabric_construction",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Fabric Construction",
+   "options": "Item",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "panna",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Panna",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "warp_weight",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Warp Weight",
+   "precision": "4",
+   "read_only": 1
+  },
+  {
+   "fieldname": "wastage_percentage",
+   "fieldtype": "Percent",
+   "label": "Wastage Percentage",
+   "precision": "2"
+  },
+  {
+   "default": "0",
+   "fieldname": "yarn_item_rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Yarn Item Rate",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "beem_rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Beem Rate",
+   "precision": "4",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-05-12 20:25:27.229040",
+ "modified": "2025-08-06 19:01:05.766244",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program Item",

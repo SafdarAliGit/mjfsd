@@ -35,6 +35,7 @@
   "lbs",
   "lbs_issue",
   "fabric_construction",
+  "panna",
   "estimated_consumption_section",
   "yarn_consumption_per_meter",
   "lbs_per_sizing_beam",
@@ -277,8 +278,9 @@
   },
   {
    "fieldname": "fabric_construction",
-   "fieldtype": "Data",
-   "label": "Fabric Construction"
+   "fieldtype": "Link",
+   "label": "Fabric Construction",
+   "options": "Item"
   },
   {
    "fieldname": "weaving_contract",
@@ -382,6 +384,11 @@
    "fieldtype": "Table",
    "label": "Fabric Construction Detail",
    "options": "Fabric Construction Detail"
+  },
+  {
+   "fieldname": "panna",
+   "fieldtype": "Int",
+   "label": "Panna"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -398,7 +405,7 @@
    "link_fieldname": "sizing_program"
   }
  ],
- "modified": "2025-07-30 18:05:52.811919",
+ "modified": "2025-08-06 17:35:59.656345",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program",

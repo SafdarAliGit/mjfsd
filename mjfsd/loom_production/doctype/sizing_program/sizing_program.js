@@ -8,7 +8,7 @@ $(document).ready(function () {
         'input[data-fieldname="warping_beam"],input[data-fieldname="sizing_beam"],input[data-fieldname="warp_wastage_percent"],' +
         'input[data-fieldname="beam_size"],input[data-fieldname="ends"],input[data-fieldname="bags_issue"],' +
         'input[data-fieldname="no_of_bags_required"],input[data-fieldname="item_returnable"],input[data-fieldname="fabric_construction"],' +
-        'input[data-fieldname="lbs_issue"]').css("background-color", "#FFE4C4");
+        'input[data-fieldname="lbs_issue"],input[data-fieldname="panna"]').css("background-color", "#FFE4C4");
 
     $('input[data-fieldname="po_number"]').focus(function () {
         $(this).css("background-color", "#50C878");
@@ -113,6 +113,12 @@ $(document).ready(function () {
     $('input[data-fieldname="fabric_construction"]').blur(function () {
         $(this).css("background-color", "#FFE4C4");
     });
+    $('input[data-fieldname="panna"]').focus(function () {
+        $(this).css("background-color", "#50C878");
+    });
+    $('input[data-fieldname="panna"]').blur(function () {
+        $(this).css("background-color", "#FFE4C4");
+    });
     $('input[data-fieldname="lbs_issue"]').blur(function () {
         $(this).css("background-color", "#FFE4C4");
     });
@@ -131,6 +137,13 @@ frappe.ui.form.on("Sizing Program", {
             return {
                 "filters": {
                     "item_group": "Beam"
+                }
+            }
+        });
+        frm.set_query("fabric_construction", function () {
+            return {
+                "filters": {
+                    "item_group": "Fabric"
                 }
             }
         });
@@ -197,6 +210,12 @@ frappe.ui.form.on("Sizing Program", {
 		}
     
     
+    },
+    fabric_construction:function(frm){
+        to_child(frm);
+    },
+    panna:function(frm){
+        to_child(frm);
     },
     lbs_issue:function(frm){
         calculate_cones_per_bag(frm);
@@ -325,12 +344,26 @@ frappe.ui.form.on('Sizing Program Item', {
     },
     ends: function(frm, cdt, cdn) {
         calculate_value_from_ends(frm, cdt, cdn);
+        calculate_warp_weight(frm, cdt, cdn)
     },
+    yarn_count: function(frm, cdt, cdn) {
+        calculate_warp_weight(frm, cdt, cdn)
+    },
+    wastage_percentage: function(frm, cdt, cdn) {
+        calculate_warp_weight(frm, cdt, cdn)
+    },
+        
     length: function(frm, cdt, cdn) {
         calculate_total_yarn_consumption(frm, cdt, cdn);
     },
     make_stock_entry: function(frm, cdt, cdn) {
         make_stock_entry(frm, cdt, cdn);
+    },
+    items_add:function(frm){
+        to_child(frm);
+    },
+    yarn_item:function(frm, cdt, cdn){
+        set_rate(frm, cdt, cdn);
     }
 });
 
@@ -407,3 +440,54 @@ function calculate_cones_per_bag(frm) {
         frm.set_value('cones_per_bag', 0);
     }
 }
+
+function to_child(frm) {
+
+    const fabric_construction = frm.doc.fabric_construction;
+    const panna = frm.doc.panna
+    if(frm.doc.items.length > 0){
+        if(fabric_construction && panna){
+            frm.doc.items.forEach(row => {
+                frappe.model.set_value(row.doctype, row.name, "fabric_construction", fabric_construction);
+                frappe.model.set_value(row.doctype, row.name, "panna", panna);
+              });
+            frm.refresh_field("items");
+        }else{
+            frappe.msgprint(__('Please select Fabric Construction and Panna'));
+        }
+    }
+}
+
+function calculate_warp_weight(frm, cdt, cdn){
+    let row = locals[cdt][cdn];
+    const ends = row.ends;
+    const yarn_count = row.yarn_count;
+    const wastage_percentage = row.wastage_percentage;
+    if(ends && yarn_count && wastage_percentage){
+    const warp_wt = ends / 768.10 / yarn_count;
+    const warp_weight = warp_wt + (warp_wt * (wastage_percentage/100));
+    frappe.model.set_value(cdt, cdn, 'warp_weight', warp_weight);
+    }else{
+        frappe.model.set_value(cdt, cdn, 'warp_weight', 0);
+    }
+}
+
+function set_rate(frm, cdt, cdn) {
+    const row = locals[cdt][cdn];
+    const source_warehouse = frm.doc.source_warehouse;
+    if (row.yarn_item && source_warehouse) {
+      frappe.call({
+        method: 'mjfsd.loom_production.events.fetch_current_rate.fetch_current_rate',
+        args: {
+          item_code: row.yarn_item,
+          warehouse: source_warehouse
+        },
+        callback: (r) => {
+          if (!r.exc && r.message !== undefined) {
+            frappe.model.set_value(cdt, cdn, 'yarn_item_rate', r.message);
+            frappe.model.set_value(cdt, cdn, 'beem_rate', r.message * row.warp_weight);
+          }
+        }
+      });
+    }
+  }
