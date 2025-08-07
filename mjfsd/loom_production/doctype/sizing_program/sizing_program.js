@@ -350,7 +350,8 @@ frappe.ui.form.on('Sizing Program Item', {
         calculate_warp_weight(frm, cdt, cdn)
     },
     wastage_percentage: function(frm, cdt, cdn) {
-        calculate_warp_weight(frm, cdt, cdn)
+        calculate_warp_weight(frm, cdt, cdn);
+        set_rate(frm, cdt, cdn);
     },
         
     length: function(frm, cdt, cdn) {
@@ -400,11 +401,14 @@ function calculate_value_from_ends(frm, cdt, cdn) {
 function calculate_total_yarn_consumption(frm, cdt, cdn) {
     let row = locals[cdt][cdn];
 
-    if (row.yarn_consumption_per_meter && row.length) {
-        let total = row.yarn_consumption_per_meter * row.length;
-        frappe.model.set_value(cdt, cdn, 'lbs', total.toFixed(2));
+    if (row.warp_weight && row.length) {
+        let total = row.warp_weight * row.length;
+        frappe.model.set_value(cdt, cdn, 'lbs', total.toFixed(4));
+        let beem_rate_per_meter = (total.toFixed(4) * row.yarn_item_rate)/row.length;
+        frappe.model.set_value(cdt, cdn, 'beem_rate_per_meter', beem_rate_per_meter.toFixed(4));
     } else {
         frappe.model.set_value(cdt, cdn, 'lbs', 0);
+        frappe.model.set_value(cdt, cdn, 'beem_rate_per_meter', 0);
     }
 }
 
@@ -491,3 +495,4 @@ function set_rate(frm, cdt, cdn) {
       });
     }
   }
+  
