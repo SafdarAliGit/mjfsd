@@ -8,6 +8,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "stock_return_entry",
+  "section_break_8n5pw",
   "conversion",
   "po_number",
   "date",
@@ -389,23 +391,30 @@
    "fieldname": "panna",
    "fieldtype": "Int",
    "label": "Panna"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "stock_return_entry",
+   "fieldtype": "Link",
+   "label": "Stock Return Entry",
+   "options": "Stock Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_8n5pw",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [
   {
-   "group": "From Master",
-   "link_doctype": "Stock Entry",
-   "link_fieldname": "custom_sizing_program_stock_entry"
-  },
-  {
-   "group": "From Child",
+   "group": "From Child Stock Entry",
    "link_doctype": "Stock Entry",
    "link_fieldname": "sizing_program"
   }
  ],
- "modified": "2025-08-06 17:35:59.656345",
+ "modified": "2025-08-08 21:17:27.675921",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program",

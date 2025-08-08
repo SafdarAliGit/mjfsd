@@ -1,3 +1,4 @@
+from emadi.hooks import doc_events
 from . import __version__ as app_version
 
 app_name = "mjfsd"
@@ -109,7 +110,11 @@ app_include_css = "/assets/mjfsd/css/sizing_program.css"
 #		"on_trash": "method"
 #	}
 # }
-
+doc_events = {
+    "Stock Entry": {
+        "on_submit": "mjfsd.loom_production.events.stock_entry.custom_on_submit"
+    }
+}
 # Scheduled Tasks
 # ---------------
 

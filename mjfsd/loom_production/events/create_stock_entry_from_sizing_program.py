@@ -128,12 +128,13 @@ def make_stock_entry_for_stock_return_item(sizing_program):
                 "qty": row.qty_lbs,
                 "uom": "Lbs",
                 "s_warehouse": sizing_program.source_warehouse,
-                "t_warehouse": sizing_program.target_warehouse,
+                "t_warehouse": row.target_warehouse,
                 "conversion_factor": 1,
                 "stock_uom":"Lbs"
             })
 
         # Save and submit the Stock Entry
+
         return se
 
     except Exception as e:
