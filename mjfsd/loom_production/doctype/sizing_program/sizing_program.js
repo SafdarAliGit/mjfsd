@@ -348,10 +348,16 @@ frappe.ui.form.on('Sizing Program Item', {
     },
     yarn_count: function(frm, cdt, cdn) {
         calculate_warp_weight(frm, cdt, cdn)
+        calculate_value_from_ends(frm, cdt, cdn);
     },
     wastage_percentage: function(frm, cdt, cdn) {
         calculate_warp_weight(frm, cdt, cdn);
         set_rate(frm, cdt, cdn);
+        calculate_value_from_ends(frm, cdt, cdn);
+    },
+    no_of_width: function(frm, cdt, cdn) {
+        calculate_warp_weight(frm, cdt, cdn);
+        calculate_value_from_ends(frm, cdt, cdn);
     },
         
     length: function(frm, cdt, cdn) {
