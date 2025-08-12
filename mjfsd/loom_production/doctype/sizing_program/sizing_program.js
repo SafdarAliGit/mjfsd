@@ -248,10 +248,11 @@ frappe.ui.form.on("Sizing Program", {
         frm.set_value('meter_sizing_beam', meter_sizing_beam);
 
         var ends = frm.doc.ends;
+        var no_of_width = frm.doc.no_of_width;
         var no_of_bags_required = (ends / cones_per_bag) / warping_beam;
         frm.set_value('no_of_bags_required', no_of_bags_required);
 
-        var yarn_consumption_per_meter = (ends / 768.1)/yarn_count;
+        var yarn_consumption_per_meter = ((ends/no_of_width) / 768.1) / yarn_count;
      
         frm.set_value('yarn_consumption_per_meter',yarn_consumption_per_meter);
 
