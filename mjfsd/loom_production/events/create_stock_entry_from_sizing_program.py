@@ -71,6 +71,10 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
         # batch.custom_warp_weight = child_row.get("warp_weight")
         # batch.custom_beem_rate = child_row.get("beem_rate")
         # batch.save(ignore_permissions=True)
+        item = frappe.get_doc("Item", child_row.get("item"))
+        item.custom_warp_weight = child_row.get("warp_weight","")
+        item.custom_beem_rate = child_row.get("beem_rate_per_meter","")
+        item.save(ignore_permissions=True)
 
         # Create Stock Entry
         se = frappe.new_doc("Stock Entry")
