@@ -62,15 +62,15 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
             valuation = 0
 
         # Create Batch for finished item
-        batch = frappe.new_doc("Batch")
-        batch.batch_id = str(child_row.get("set_no")) 
-        batch.item = child_row.get("item")
-        batch.stock_uom = "Meter"
-        batch.custom_ends = child_row.get("ends")
-        batch.custom_yarn_count = child_row.get("yarn_count")
-        batch.custom_warp_weight = child_row.get("warp_weight")
-        batch.custom_beem_rate = child_row.get("beem_rate")
-        batch.save(ignore_permissions=True)
+        # batch = frappe.new_doc("Batch")
+        # batch.batch_id = str(child_row.get("set_no")) 
+        # batch.item = child_row.get("item")
+        # batch.stock_uom = "Meter"
+        # batch.custom_ends = child_row.get("ends")
+        # batch.custom_yarn_count = child_row.get("yarn_count")
+        # batch.custom_warp_weight = child_row.get("warp_weight")
+        # batch.custom_beem_rate = child_row.get("beem_rate")
+        # batch.save(ignore_permissions=True)
 
         # Create Stock Entry
         se = frappe.new_doc("Stock Entry")
@@ -95,7 +95,7 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
             "qty": child_row.get("length"),
             "uom": "Meter",
             "t_warehouse": child_row.get("target_warehouse"),
-            "batch_no": batch.name,
+            # "batch_no": batch.name,
             "allow_zero_valuation_rate": valuation
         })
 
