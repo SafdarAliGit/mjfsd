@@ -474,7 +474,7 @@ function calculate_warp_weight(frm, cdt, cdn){
     const no_of_width = row.no_of_width;
     const yarn_count = row.yarn_count;
     const wastage_percentage = row.wastage_percentage;
-    if(ends && yarn_count && wastage_percentage){
+    if(ends && yarn_count){
     const warp_wt = ends/no_of_width / 768.10 / yarn_count;
     const warp_weight = warp_wt + (warp_wt * (wastage_percentage/100));
     frappe.model.set_value(cdt, cdn, 'warp_weight', warp_weight);
