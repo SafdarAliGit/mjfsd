@@ -358,9 +358,10 @@ frappe.ui.form.on('Sizing Program Item', {
     no_of_width: function(frm, cdt, cdn) {
         calculate_warp_weight(frm, cdt, cdn);
         calculate_value_from_ends(frm, cdt, cdn);
+        calculate_total_yarn_consumption(frm, cdt, cdn);
     },
         
-    length: function(frm, cdt, cdn) {
+    beem_length: function(frm, cdt, cdn) {
         calculate_total_yarn_consumption(frm, cdt, cdn);
     },
     make_stock_entry: function(frm, cdt, cdn) {
@@ -406,6 +407,9 @@ function calculate_value_from_ends(frm, cdt, cdn) {
 
 function calculate_total_yarn_consumption(frm, cdt, cdn) {
     let row = locals[cdt][cdn];
+
+    const length =  row.beem_length * row.no_of_width;
+    frappe.model.set_value(cdt, cdn, 'length', length);
 
     if (row.warp_weight && row.length) {
         let total = row.warp_weight * row.length;

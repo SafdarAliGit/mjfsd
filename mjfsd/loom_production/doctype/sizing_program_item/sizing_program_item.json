@@ -18,6 +18,7 @@
   "no_of_width",
   "beam_no",
   "wastage_percentage",
+  "beem_length",
   "length",
   "ends",
   "yarn_consumption_per_meter",
@@ -99,6 +100,7 @@
    "label": "Beam No"
   },
   {
+   "default": "0",
    "fieldname": "length",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -209,16 +211,24 @@
    "label": "Beem Rate (Meter)"
   },
   {
+   "default": "0",
    "fieldname": "no_of_width",
    "fieldtype": "Int",
    "in_list_view": 1,
    "label": "No Of Width"
+  },
+  {
+   "default": "0",
+   "fieldname": "beem_length",
+   "fieldtype": "Float",
+   "label": "Beem Length",
+   "precision": "2"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-08-12 15:34:21.297459",
+ "modified": "2025-08-24 20:07:36.313906",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program Item",
