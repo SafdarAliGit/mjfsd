@@ -161,6 +161,14 @@ frappe.ui.form.on("Sizing Program", {
                 }
             }
         });
+        frm.set_query("expense_account","items", function() {
+            return {
+                filters: {
+                    root_type: "Expense",
+                    is_group: 0
+                }
+            };
+        });
         frm.set_query("yarn_item","stock_return_item", function () {
             return {
                 "filters": {
@@ -358,7 +366,7 @@ frappe.ui.form.on('Sizing Program Item', {
     no_of_width: function(frm, cdt, cdn) {
         calculate_warp_weight(frm, cdt, cdn);
         calculate_value_from_ends(frm, cdt, cdn);
-        calculate_total_yarn_consumption(frm, cdt, cdn);
+        // calculate_total_yarn_consumption(frm, cdt, cdn);
     },
         
     beem_length: function(frm, cdt, cdn) {
@@ -372,6 +380,12 @@ frappe.ui.form.on('Sizing Program Item', {
     },
     yarn_item:function(frm, cdt, cdn){
         set_rate(frm, cdt, cdn);
+    },
+    sizing_rate:function(frm, cdt, cdn){
+        calculate_beem_rate(frm, cdt, cdn);
+    },
+    ends:function(frm, cdt, cdn){
+        calculate_total_yarn_consumption(frm, cdt, cdn);
     }
 });
 
@@ -411,15 +425,12 @@ function calculate_total_yarn_consumption(frm, cdt, cdn) {
     const length =  row.beem_length * row.no_of_width;
     frappe.model.set_value(cdt, cdn, 'length', length);
 
-    if (row.warp_weight && row.length) {
-        let total = row.warp_weight * row.length;
+
+        let total = row.yarn_consumption_per_meter * length;
         frappe.model.set_value(cdt, cdn, 'lbs', total.toFixed(4));
-        let beem_rate_per_meter = (total.toFixed(4) * row.yarn_item_rate)/row.length;
+        let beem_rate_per_meter = (total.toFixed(4) * row.yarn_item_rate)/length;
         frappe.model.set_value(cdt, cdn, 'beem_rate_per_meter', beem_rate_per_meter.toFixed(4));
-    } else {
-        frappe.model.set_value(cdt, cdn, 'lbs', 0);
-        frappe.model.set_value(cdt, cdn, 'beem_rate_per_meter', 0);
-    }
+   
 }
 
 function make_stock_entry(frm, cdt, cdn) {
@@ -477,7 +488,7 @@ function calculate_warp_weight(frm, cdt, cdn){
     const ends = row.ends;
     const no_of_width = row.no_of_width;
     const yarn_count = row.yarn_count;
-    const wastage_percentage = row.wastage_percentage;
+    const wastage_percentage = row.wastage_percentage || 0;
     if(ends && yarn_count){
     const warp_wt = ends/no_of_width / 768.10 / yarn_count;
     const warp_weight = warp_wt + (warp_wt * (wastage_percentage/100));
@@ -507,3 +518,16 @@ function set_rate(frm, cdt, cdn) {
     }
   }
   
+  function calculate_beem_rate(frm, cdt, cdn) {
+    let row = locals[cdt][cdn];
+    const sizing_rate = row.sizing_rate || 0;
+    const length = row.length || 0;
+    const lbs = row.lbs || 0;
+    
+    frappe.model.set_value(cdt, cdn, 'sizing_amount', sizing_rate * lbs);
+    const sizing_amount_by_length = row.sizing_amount / length;
+    const beem_rate_plus = sizing_amount_by_length + row.beem_rate;
+    frappe.model.set_value(cdt, cdn, 'beem_rate_per_meter',beem_rate_plus);
+    
+
+  }

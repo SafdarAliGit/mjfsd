@@ -102,6 +102,12 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
             # "batch_no": batch.name,
             "allow_zero_valuation_rate": valuation
         })
+        if child_row.get("sizing_amount"):
+            se.append("additional_costs", {
+                "expense_account": child_row.get("expense_account"),
+                "description":docname,
+                "amount": child_row.get("sizing_amount"),
+            })
 
         se.save(ignore_permissions=True)
         se.submit()
