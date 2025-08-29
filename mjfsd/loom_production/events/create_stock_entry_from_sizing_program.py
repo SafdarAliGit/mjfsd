@@ -60,18 +60,19 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
             valuation = 1
         else:
             valuation = 0
-
-        # Create Batch for finished item
-        # batch = frappe.new_doc("Batch")
-        # batch.batch_id = str(child_row.get("set_no")) 
-        # batch.item = child_row.get("item")
-        # batch.stock_uom = "Meter"
-        # batch.custom_ends = child_row.get("ends")
-        # batch.custom_yarn_count = child_row.get("yarn_count")
-        # batch.custom_warp_weight = child_row.get("warp_weight")
-        # batch.custom_beem_rate = child_row.get("beem_rate")
-        # batch.save(ignore_permissions=True)
         item = frappe.get_doc("Item", child_row.get("item"))
+        if item.has_batch_no:
+            # Create Batch for finished item
+            batch = frappe.new_doc("Batch")
+            batch.batch_id = str(child_row.get("set_no")) 
+            batch.item = child_row.get("item")
+            batch.stock_uom = "Meter"
+            batch.custom_ends = child_row.get("ends")
+            batch.custom_yarn_count = child_row.get("yarn_count")
+            batch.custom_warp_weight = child_row.get("warp_weight")
+            batch.custom_beem_rate = child_row.get("beem_rate")
+            batch.save(ignore_permissions=True)
+        
         item.custom_warp_weight = child_row.get("warp_weight","")
         item.custom_beem_rate = child_row.get("beem_rate_per_meter","")
         item.save(ignore_permissions=True)
@@ -99,9 +100,14 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
             "qty": child_row.get("length"),
             "uom": "Meter",
             "t_warehouse": child_row.get("target_warehouse"),
-            # "batch_no": batch.name,
             "allow_zero_valuation_rate": valuation
         })
+        
+        if item.has_batch_no:
+            item_dict["batch_no"] = batch.name
+
+        se.append("items", item_dict)
+
         if child_row.get("sizing_amount"):
             se.append("additional_costs", {
                 "expense_account": child_row.get("expense_account"),
