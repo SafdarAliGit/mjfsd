@@ -95,17 +95,20 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
         })
 
         # Finished Item Entry (target)
-        se.append("items", {
+        # Build the main item dictionary
+        item_dict = {
             "item_code": child_row.get("item"),
             "qty": child_row.get("length"),
             "uom": "Meter",
             "t_warehouse": child_row.get("target_warehouse"),
             "allow_zero_valuation_rate": valuation
-        })
-        
+        }
+
+        # Add batch_no if the item has one
         if item.has_batch_no:
             item_dict["batch_no"] = batch.name
 
+        # Append the complete dictionary to the child table
         se.append("items", item_dict)
 
         if child_row.get("sizing_amount"):
