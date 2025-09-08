@@ -111,15 +111,26 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
         # Append the complete dictionary to the child table
         se.append("items", item_dict)
 
-        if child_row.get("sizing_amount"):
-            se.append("additional_costs", {
-                "expense_account": child_row.get("expense_account"),
-                "description":docname,
-                "amount": child_row.get("sizing_amount"),
-            })
-
         se.save(ignore_permissions=True)
         se.submit()
+        if child_row.get("sizing_amount"):
+            je = frappe.new_doc("Journal Entry")
+            je.voucher_type = "Journal Entry"
+            je.posting_date = sizing_program.date
+            je.user_remark = sizing_program.name
+            je.custom_sizing_program = sizing_program.name
+            je.append("accounts", {
+                "account": child_row.get("expense_account"),
+                "debit_in_account_currency": child_row.get("sizing_amount")
+            })
+            je.append("accounts", {
+                "account": "Creditors - ET",
+                "party_type": "Supplier",
+                "party": child_row.get("sizing_name"),
+                "credit_in_account_currency": child_row.get("sizing_amount")
+            })
+            je.save(ignore_permissions=True)
+            je.submit()
 
     except Exception as e:
         frappe.log_error(frappe.get_traceback(), "Error in make_stock_entry_from_sizing_item")
