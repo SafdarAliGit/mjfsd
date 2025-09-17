@@ -217,7 +217,7 @@ frappe.ui.form.on("Sizing Program", {
             }).css('background-color', '#527DF3').css('color', '#ffffff','font-weight','bold');
 		}
     
-        if (frm.doc.docstatus == 1) {
+
         frm.add_custom_button(__("Gate Pass"), function() {
             // call the server method
             frappe.call({
@@ -233,7 +233,7 @@ frappe.ui.form.on("Sizing Program", {
                 }
             });
         }).css('background-color', '#007e00').css('color', '#ffffff','font-weight','bold');   
-    }
+    
     
     },
     fabric_construction:function(frm){

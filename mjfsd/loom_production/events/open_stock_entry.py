@@ -11,12 +11,15 @@ def open_stock_entry(sizing_program_name):
     # Create a new Stock Entry
     se = frappe.new_doc("Stock Entry")
     se.stock_entry_type = "Material Transfer"  # or appropriate type
+    se.custom_sizing_program_gate_pass = sp.name
+    se.purpose = "Material Transfer"
+    se.set_posting_time = 1
+    se.posting_date = sp.date
     # Maybe link back (custom field) to Sizing Program?
     se.append("items", {
-        "item_code": "ABC-ITEM",  # or from sp
-        "qty": 1,
-        "s_warehouse": "",
-        "t_warehouse": ""
+        "item_code": sp.item,  # or from sp
+        "qty": sp.lbs,
+        "t_warehouse": sp.source_warehouse
     })
     # If you want set other fields
     # se.save()

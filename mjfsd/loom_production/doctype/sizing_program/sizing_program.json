@@ -413,9 +413,15 @@
    "group": "Journal Entry",
    "link_doctype": "Journal Entry",
    "link_fieldname": "custom_sizing_program"
+  },
+  {
+   "custom": 1,
+   "group": "Gate Pass",
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "custom_sizing_program_gate_pass"
   }
  ],
- "modified": "2025-09-08 17:38:15.503485",
+ "modified": "2025-09-17 18:58:39.274799",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program",
