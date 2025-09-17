@@ -21,7 +21,7 @@ def open_stock_entry(sizing_program_name):
         "item_code": sp.item,  # or from sp
         "qty": sp.lbs,
         "t_warehouse": sp.source_warehouse,
-        "uom": item.uom,
+        "uom": item.stock_uom,
         "stock_uom": item.stock_uom
     })
     # If you want set other fields
