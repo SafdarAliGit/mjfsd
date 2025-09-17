@@ -217,6 +217,23 @@ frappe.ui.form.on("Sizing Program", {
             }).css('background-color', '#527DF3').css('color', '#ffffff','font-weight','bold');
 		}
     
+        if (frm.doc.docstatus == 1) {
+        frm.add_custom_button(__("Gate Pass"), function() {
+            // call the server method
+            frappe.call({
+                method: "mjfsd.loom_production.events.open_stock_entry.open_stock_entry",
+                args: {
+                    sizing_program_name: frm.doc.name
+                },
+                callback: function(r) {
+                    if (!r.exc) {
+                        frappe.model.sync(r.message);
+                        frappe.set_route("Form", r.message.doctype, r.message.name);
+                    }
+                }
+            });
+        }).css('background-color', '#007e00').css('color', '#ffffff','font-weight','bold');   
+    }
     
     },
     fabric_construction:function(frm){
