@@ -15,11 +15,14 @@ def open_stock_entry(sizing_program_name):
     se.purpose = "Material Transfer"
     se.set_posting_time = 1
     se.posting_date = sp.date
+    item = frappe.get_doc("Item", sp.item)
     # Maybe link back (custom field) to Sizing Program?
     se.append("items", {
         "item_code": sp.item,  # or from sp
         "qty": sp.lbs,
-        "t_warehouse": sp.source_warehouse
+        "t_warehouse": sp.source_warehouse,
+        "uom": item.uom,
+        "stock_uom": item.stock_uom
     })
     # If you want set other fields
     # se.save()
