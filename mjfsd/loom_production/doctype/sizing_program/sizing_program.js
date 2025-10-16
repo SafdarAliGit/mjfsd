@@ -563,18 +563,18 @@ function set_rate(frm, cdt, cdn) {
     let yarn_count = row.yarn_count || 0;
     
     // Avoid division by zero
-    if (lbs === 0) {
-        frappe.model.set_value(cdt, cdn, 'actual_yarn_count', 0);
-        frappe.model.set_value(cdt, cdn, 'actual_yarn_rate', 0);
-        return;
-    }
+    // if (lbs == 0) {
+    //     frappe.model.set_value(cdt, cdn, 'actual_yarn_count', 0);
+    //     frappe.model.set_value(cdt, cdn, 'actual_yarn_rate', 0);
+    //     return;
+    // }
     
     // actual_yarn_count = ends * beam_length / 768.10 / lbs
     let actual_yarn_count = (ends * beam_length) / 768.10 / lbs;
     
     // actual_yarn_rate = (yarn_item_rate / actual_yarn_count) * yarn_count
     let actual_yarn_rate = 0;
-    if (actual_yarn_count !== 0) {
+    if (actual_yarn_count != 0) {
         actual_yarn_rate = (yarn_item_rate / actual_yarn_count) * yarn_count;
     }
     
