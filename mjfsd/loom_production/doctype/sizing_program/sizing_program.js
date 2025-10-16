@@ -579,8 +579,8 @@ function set_rate(frm, cdt, cdn) {
     }
     
     // Optionally round or format
-    actual_yarn_count = frappe.utils.round(actual_yarn_count, 2);
-    actual_yarn_rate = frappe.utils.round(actual_yarn_rate, 2);
+    actual_yarn_count = (actual_yarn_count).toFixed(2);
+    actual_yarn_rate = (actual_yarn_rate).toFixed(2);
     
     frappe.model.set_value(cdt, cdn, 'actual_yarn_count', actual_yarn_count);
     frappe.model.set_value(cdt, cdn, 'actual_yarn_rate', actual_yarn_rate);
