@@ -388,6 +388,7 @@ frappe.ui.form.on('Sizing Program Item', {
         
     beem_length: function(frm, cdt, cdn) {
         calculate_total_yarn_consumption(frm, cdt, cdn);
+        compute_yarn_values(frm, cdt, cdn);
     },
     make_stock_entry: function(frm, cdt, cdn) {
         make_stock_entry(frm, cdt, cdn);
@@ -403,6 +404,10 @@ frappe.ui.form.on('Sizing Program Item', {
     },
     ends:function(frm, cdt, cdn){
         calculate_total_yarn_consumption(frm, cdt, cdn);
+        compute_yarn_values(frm, cdt, cdn);
+    },
+    lbs:function(frm, cdt, cdn){
+        compute_yarn_values(frm, cdt, cdn);
     }
 });
 
@@ -548,3 +553,35 @@ function set_rate(frm, cdt, cdn) {
     
 
   }
+
+  function compute_yarn_values(frm, cdt, cdn) {
+    let row = locals[cdt][cdn];
+    let ends = row.ends || 0;
+    let beam_length = row.beam_length || 0;
+    let lbs = row.lbs || 0;
+    let yarn_item_rate = row.yarn_item_rate || 0;
+    let yarn_count = row.yarn_count || 0;
+    
+    // Avoid division by zero
+    if (lbs === 0) {
+        frappe.model.set_value(cdt, cdn, 'actual_yarn_count', 0);
+        frappe.model.set_value(cdt, cdn, 'actual_yarn_rate', 0);
+        return;
+    }
+    
+    // actual_yarn_count = ends * beam_length / 768.10 / lbs
+    let actual_yarn_count = (ends * beam_length) / 768.10 / lbs;
+    
+    // actual_yarn_rate = (yarn_item_rate / actual_yarn_count) * yarn_count
+    let actual_yarn_rate = 0;
+    if (actual_yarn_count !== 0) {
+        actual_yarn_rate = (yarn_item_rate / actual_yarn_count) * yarn_count;
+    }
+    
+    // Optionally round or format
+    actual_yarn_count = frappe.utils.round(actual_yarn_count, 2);
+    actual_yarn_rate = frappe.utils.round(actual_yarn_rate, 2);
+    
+    frappe.model.set_value(cdt, cdn, 'actual_yarn_count', actual_yarn_count);
+    frappe.model.set_value(cdt, cdn, 'actual_yarn_rate', actual_yarn_rate);
+}
