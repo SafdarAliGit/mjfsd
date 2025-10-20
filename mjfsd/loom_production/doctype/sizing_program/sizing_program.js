@@ -533,7 +533,6 @@ function set_rate(frm, cdt, cdn) {
         callback: (r) => {
           if (!r.exc && r.message !== undefined) {
             frappe.model.set_value(cdt, cdn, 'yarn_item_rate', r.message);
-            frappe.model.set_value(cdt, cdn, 'beem_rate', r.message * row.warp_weight);
           }
         }
       });
@@ -573,6 +572,8 @@ function compute_yarn_values(frm, cdt, cdn) {
     }
     if (actual_yarn_count != 0) {
         actual_yarn_rate = (yarn_item_rate / actual_yarn_count) * yarn_count;
+        frappe.model.set_value(cdt, cdn, 'beem_rate', actual_yarn_rate * row.warp_weight);
+        
     }
     
     // Format / rounding
