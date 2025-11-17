@@ -15,6 +15,7 @@
   "yarn_count",
   "remarks",
   "actual_yarn_count",
+  "waste_account",
   "actual_yarn_rate",
   "yarn_wastage_qty",
   "wastage_amount",
@@ -278,12 +279,18 @@
    "fieldtype": "Currency",
    "label": "Wastage Amount",
    "read_only": 1
+  },
+  {
+   "fieldname": "waste_account",
+   "fieldtype": "Link",
+   "label": "Waste Account",
+   "options": "Account"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-17 16:42:49.465760",
+ "modified": "2025-11-17 17:35:03.635747",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program Item",

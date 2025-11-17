@@ -111,11 +111,17 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
         # Append the complete dictionary to the child table
         se.append("items", item_dict)
 
-        if child_row.get("sizing_amount") and child_row.get("sizing_amount") != 0:
+        if child_row.get("expense_account") and child_row.get("sizing_amount") != 0:
             se.append("additional_costs", {
                 "expense_account": child_row.get("expense_account"),
                 "description":docname,
                 "amount": child_row.get("sizing_amount"),
+            })
+        if child_row.get("waste_account") and child_row.get("wastage_amount") != 0:
+            se.append("additional_costs", {
+                "expense_account": child_row.get("waste_account"),
+                "description":docname,
+                "amount": child_row.get("wastage_amount"),
             })
 
         se.save(ignore_permissions=True)
