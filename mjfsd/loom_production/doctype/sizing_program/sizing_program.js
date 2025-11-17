@@ -379,6 +379,7 @@ frappe.ui.form.on('Sizing Program Item', {
         calculate_warp_weight(frm, cdt, cdn);
         set_rate(frm, cdt, cdn);
         calculate_value_from_ends(frm, cdt, cdn);
+        calculate_yarn_wastage(frm, cdt, cdn);
     },
     no_of_width: function(frm, cdt, cdn) {
         calculate_warp_weight(frm, cdt, cdn);
@@ -398,6 +399,7 @@ frappe.ui.form.on('Sizing Program Item', {
     },
     yarn_item:function(frm, cdt, cdn){
         set_rate(frm, cdt, cdn);
+        calculate_yarn_wastage(frm, cdt, cdn);
     },
     sizing_rate:function(frm, cdt, cdn){
         calculate_beem_rate(frm, cdt, cdn);
@@ -408,6 +410,7 @@ frappe.ui.form.on('Sizing Program Item', {
     },
     lbs:function(frm, cdt, cdn){
         compute_yarn_values(frm, cdt, cdn);
+        calculate_yarn_wastage(frm, cdt, cdn);
     }
 });
 
@@ -583,4 +586,15 @@ function compute_yarn_values(frm, cdt, cdn) {
     // Set back to the child row
     frappe.model.set_value(cdt, cdn, 'actual_yarn_count', actual_yarn_count);
     frappe.model.set_value(cdt, cdn, 'actual_yarn_rate', actual_yarn_rate);
+}
+
+function calculate_yarn_wastage(frm, cdt, cdn){
+    let row = locals[cdt][cdn];
+    const lbs = row.lbs || 0;
+    const yarn_item_rate = row.yarn_item_rate || 0;
+    const wastage_percentage = row.wastage_percentage || 0;
+    const yarn_wastage_qty = lbs * (wastage_percentage/100);
+    frappe.model.set_value(cdt, cdn, 'yarn_wastage_qty', yarn_wastage_qty);
+    const wastage_amount = yarn_wastage_qty * yarn_item_rate;
+    frappe.model.set_value(cdt, cdn, 'wastage_amount', wastage_amount);
 }
