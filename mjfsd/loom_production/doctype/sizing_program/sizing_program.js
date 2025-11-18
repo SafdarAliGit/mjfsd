@@ -406,6 +406,7 @@ frappe.ui.form.on('Sizing Program Item', {
         calculate_total_yarn_consumption(frm, cdt, cdn);
         calculate_beem_rate(frm, cdt, cdn);
         compute_yarn_values(frm, cdt, cdn);
+        calculate_total_yarn_consumption(frm, cdt, cdn);
         
     },
     ends:function(frm, cdt, cdn){
