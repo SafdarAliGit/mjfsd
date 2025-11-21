@@ -56,10 +56,16 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
 
         sizing_program = frappe.get_doc("Sizing Program", docname)
         valuation = 0
+        stock_entry_type = "Beem Receipt Entry"
+        is_finished_item = 1
         if sizing_program.conversion == 1:
             valuation = 1
+            stock_entry_type = "Repack"
+            is_finished_item = 0
         else:
             valuation = 0
+            stock_entry_type = "Beem Receipt Entry"
+            is_finished_item = 1
         item = frappe.get_doc("Item", child_row.get("item"))
         if item.has_batch_no:
             # Create Batch for finished item
@@ -79,8 +85,8 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
 
         # Create Stock Entry
         se = frappe.new_doc("Stock Entry")
-        se.stock_entry_type = "Repack"
-        se.purpose = "Repack"
+        se.stock_entry_type = stock_entry_type
+        se.purpose = stock_entry_type
         se.set_posting_time = 1
         se.posting_date = sizing_program.date
         se.sizing_program = sizing_program.name
@@ -101,7 +107,8 @@ def make_stock_entry_from_sizing_item(docname,s_warehouse, child_row):
             "qty": child_row.get("length"),
             "uom": "Meter",
             "t_warehouse": child_row.get("target_warehouse"),
-            "allow_zero_valuation_rate": valuation
+            "allow_zero_valuation_rate": valuation,
+            "is_finished_item": is_finished_item
         }
 
         # Add batch_no if the item has one

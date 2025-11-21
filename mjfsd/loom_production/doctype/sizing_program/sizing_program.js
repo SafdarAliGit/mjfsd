@@ -595,10 +595,13 @@ function compute_yarn_values(frm, cdt, cdn) {
 function calculate_yarn_wastage(frm, cdt, cdn){
     let row = locals[cdt][cdn];
     const lbs = row.lbs || 0;
-    const yarn_item_rate = row.yarn_item_rate || 0;
+    const beem_rate = row.beem_rate_per_meter || 0;
+    const length = row.length || 0;
+    const yarn_rate = row.yarn_item_rate || 0;
+    const sizing_amount = row.sizing_amount || 0;
     const wastage_percentage = row.wastage_percentage || 0;
     const yarn_wastage_qty = lbs * (wastage_percentage/100);
     frappe.model.set_value(cdt, cdn, 'yarn_wastage_qty', yarn_wastage_qty);
-    const wastage_amount = yarn_wastage_qty * yarn_item_rate;
+    const wastage_amount = (beem_rate * length) - (yarn_rate * lbs) - sizing_amount;
     frappe.model.set_value(cdt, cdn, 'wastage_amount', wastage_amount);
 }
