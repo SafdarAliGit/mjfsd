@@ -456,7 +456,7 @@ function calculate_total_yarn_consumption(frm, cdt, cdn) {
 
 
         let total = row.yarn_consumption_per_meter * length;
-        frappe.model.set_value(cdt, cdn, 'lbs', total.toFixed(4));
+        // frappe.model.set_value(cdt, cdn, 'lbs', total.toFixed(4));
         let beem_rate_per_meter = (total.toFixed(4) * row.yarn_item_rate)/length;
         frappe.model.set_value(cdt, cdn, 'beem_rate_per_meter', beem_rate_per_meter.toFixed(4));
    
