@@ -40,7 +40,9 @@
   "sizing_rate",
   "sizing_amount",
   "beem_rate_per_meter",
-  "make_stock_entry"
+  "make_stock_entry",
+  "value_of_yarn",
+  "value_of_actual_yarn"
  ],
  "fields": [
   {
@@ -193,6 +195,7 @@
   {
    "fieldname": "wastage_percentage",
    "fieldtype": "Percent",
+   "hidden": 1,
    "label": "Wastage Percentage",
    "precision": "2"
   },
@@ -270,8 +273,8 @@
    "default": "0",
    "fieldname": "yarn_wastage_qty",
    "fieldtype": "Float",
-   "label": "Yarn Wastage Qty",
-   "read_only": 1
+   "hidden": 1,
+   "label": "Yarn Wastage Qty"
   },
   {
    "default": "0",
@@ -286,12 +289,28 @@
    "fieldtype": "Link",
    "label": "Waste Account",
    "options": "Account"
+  },
+  {
+   "default": "0",
+   "fieldname": "value_of_yarn",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Value Of Yarn",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "value_of_actual_yarn",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Value Of Actual Yarn",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-18 19:34:21.895040",
+ "modified": "2025-12-22 13:32:53.604484",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program Item",

@@ -375,12 +375,12 @@ frappe.ui.form.on('Sizing Program Item', {
         calculate_warp_weight(frm, cdt, cdn)
         calculate_value_from_ends(frm, cdt, cdn);
     },
-    wastage_percentage: function(frm, cdt, cdn) {
-        calculate_warp_weight(frm, cdt, cdn);
-        set_rate(frm, cdt, cdn);
-        calculate_value_from_ends(frm, cdt, cdn);
-        calculate_yarn_wastage(frm, cdt, cdn);
-    },
+    // wastage_percentage: function(frm, cdt, cdn) {
+    //     calculate_warp_weight(frm, cdt, cdn);
+    //     set_rate(frm, cdt, cdn);
+    //     calculate_value_from_ends(frm, cdt, cdn);
+    //     // calculate_yarn_wastage(frm, cdt, cdn);
+    // },
     no_of_width: function(frm, cdt, cdn) {
         calculate_warp_weight(frm, cdt, cdn);
         calculate_value_from_ends(frm, cdt, cdn);
@@ -390,6 +390,7 @@ frappe.ui.form.on('Sizing Program Item', {
     beem_length: function(frm, cdt, cdn) {
         calculate_total_yarn_consumption(frm, cdt, cdn);
         compute_yarn_values(frm, cdt, cdn);
+        // calculate_yarn_wastage(frm, cdt, cdn);
     },
     make_stock_entry: function(frm, cdt, cdn) {
         make_stock_entry(frm, cdt, cdn);
@@ -399,22 +400,27 @@ frappe.ui.form.on('Sizing Program Item', {
     },
     yarn_item:function(frm, cdt, cdn){
         set_rate(frm, cdt, cdn);
-        calculate_yarn_wastage(frm, cdt, cdn);
+        // calculate_yarn_wastage(frm, cdt, cdn);
+        calculate_wastes(frm, cdt, cdn);
     },
     sizing_rate:function(frm, cdt, cdn){
         
         calculate_total_yarn_consumption(frm, cdt, cdn);
         compute_yarn_values(frm, cdt, cdn);
         calculate_beem_rate(frm, cdt, cdn);
+        calculate_wastes(frm, cdt, cdn);
         
     },
     ends:function(frm, cdt, cdn){
         calculate_total_yarn_consumption(frm, cdt, cdn);
         compute_yarn_values(frm, cdt, cdn);
+        calculate_wastes(frm, cdt, cdn);
     },
     lbs:function(frm, cdt, cdn){
         compute_yarn_values(frm, cdt, cdn);
-        calculate_yarn_wastage(frm, cdt, cdn);
+        // calculate_yarn_wastage(frm, cdt, cdn);
+        calculate_wastes(frm, cdt, cdn);
+        calculate_wastes(frm, cdt, cdn);
     }
 });
 
@@ -517,10 +523,11 @@ function calculate_warp_weight(frm, cdt, cdn){
     const ends = row.ends;
     const no_of_width = row.no_of_width;
     const actual_yarn_count = row.actual_yarn_count;
-    const wastage_percentage = row.wastage_percentage || 0;
+    // const wastage_percentage = row.wastage_percentage || 0;
     if(ends && actual_yarn_count){
     const warp_wt = ends/no_of_width / 768.10 / actual_yarn_count;
-    const warp_weight = warp_wt + (warp_wt * (wastage_percentage/100));
+    // const warp_weight = warp_wt + (warp_wt * (wastage_percentage/100));
+    const warp_weight = warp_wt;
     frappe.model.set_value(cdt, cdn, 'warp_weight', warp_weight);
     }else{
         frappe.model.set_value(cdt, cdn, 'warp_weight', 0);
@@ -592,16 +599,37 @@ function compute_yarn_values(frm, cdt, cdn) {
     frappe.model.set_value(cdt, cdn, 'actual_yarn_rate', actual_yarn_rate);
 }
 
-function calculate_yarn_wastage(frm, cdt, cdn){
-    let row = locals[cdt][cdn];
-    const lbs = row.lbs || 0;
-    const beem_rate = row.beem_rate_per_meter || 0;
-    const length = row.length || 0;
-    const yarn_rate = row.yarn_item_rate || 0;
-    const sizing_amount = row.sizing_amount || 0;
-    const wastage_percentage = row.wastage_percentage || 0;
-    const yarn_wastage_qty = lbs * (wastage_percentage/100);
-    frappe.model.set_value(cdt, cdn, 'yarn_wastage_qty', yarn_wastage_qty);
-    const wastage_amount = (beem_rate * length) - (yarn_rate * lbs) - sizing_amount;
-    frappe.model.set_value(cdt, cdn, 'wastage_amount', wastage_amount);
-}
+// function calculate_yarn_wastage(frm, cdt, cdn){
+//     let row = locals[cdt][cdn];
+//     const lbs = row.lbs || 0;
+//     const beem_rate = row.beem_rate_per_meter || 0;
+//     const length = row.length || 0;
+//     const yarn_rate = row.yarn_item_rate || 0;
+//     const sizing_amount = row.sizing_amount || 0;
+//     // const wastage_percentage = row.wastage_percentage || 0;
+//     // const yarn_wastage_qty = lbs * (wastage_percentage/100);
+//     const yarn_wastage_qty = lbs;
+//     frappe.model.set_value(cdt, cdn, 'yarn_wastage_qty', yarn_wastage_qty);
+//     const wastage_amount = (beem_rate * length) - (yarn_rate * lbs) - sizing_amount;
+//     frappe.model.set_value(cdt, cdn, 'wastage_amount', wastage_amount);
+// }
+
+   function calculate_wastes(frm, cdt, cdn) {
+        // Get the row using the cdt (child doctype) and cdn (child docname)
+        let row = locals[cdt][cdn];
+        
+        // Retrieve the values from the row
+        let yarn_item_rate = row.yarn_item_rate || 0;
+        let actual_yarn_rate = row.actual_yarn_rate || 0;
+        let lbs = row.lbs || 0;
+
+        // Perform calculations for the current row
+        let value_of_yarn = yarn_item_rate * lbs;
+        let value_of_actual_yarn = actual_yarn_rate * lbs;
+        let wastage_amount = value_of_yarn - value_of_actual_yarn;
+
+        // Set the calculated values back to the row
+        frappe.model.set_value(cdt, cdn, 'value_of_yarn', value_of_yarn);
+        frappe.model.set_value(cdt, cdn, 'value_of_actual_yarn', value_of_actual_yarn);
+        frappe.model.set_value(cdt, cdn, 'wastage_amount', wastage_amount);
+    }
