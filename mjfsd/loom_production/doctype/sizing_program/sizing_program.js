@@ -420,7 +420,7 @@ frappe.ui.form.on('Sizing Program Item', {
         compute_yarn_values(frm, cdt, cdn);
         // calculate_yarn_wastage(frm, cdt, cdn);
         calculate_wastes(frm, cdt, cdn);
-        calculate_wastes(frm, cdt, cdn);
+        calculate_value_from_ends(frm, cdt, cdn);
     }
 });
 

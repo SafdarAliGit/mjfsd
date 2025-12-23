@@ -237,7 +237,7 @@
   },
   {
    "default": "0.0",
-   "description": "(Ends / 768.1)/ Yarn Count",
+   "description": "(Ends / 768.1)/ Actual Yarn Count",
    "fieldname": "yarn_consumption_per_meter",
    "fieldtype": "Float",
    "label": "Yarn Consumption Per Meter",
@@ -421,7 +421,7 @@
    "link_fieldname": "custom_sizing_program_gate_pass"
   }
  ],
- "modified": "2025-09-17 18:58:39.274799",
+ "modified": "2025-12-23 16:50:54.307882",
  "modified_by": "Administrator",
  "module": "Loom Production",
  "name": "Sizing Program",
