@@ -37,7 +37,8 @@ function calculate_meters_in_row(frm, cdt, cdn) {
         frm.fields_dict['items'].grid.refresh();
         return;
     }
-
+    console.log("actual_reading",row.actual_reading, "constant", row.constant, "pick", row.pick, "panna", row.panna);
     const meters = ((row.actual_reading * row.constant) / row.pick) * row.panna;
+    console.log("meters", meters);
     frappe.model.set_value(cdt, cdn, 'meters', flt(meters, 2));
 }
