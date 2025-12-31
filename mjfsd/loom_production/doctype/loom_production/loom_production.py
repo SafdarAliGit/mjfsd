@@ -9,7 +9,7 @@ class LoomProduction(Document):
     def validate(self):
         for item in self.loom_production_items:
             if not item.constant:
-                item.constant = 2.54
+                item.constant = 25.4
 
     def before_save(self):
         try:
